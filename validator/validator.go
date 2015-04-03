@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./common"
 	"fmt"
+	"github.com/jonfk/training-log-analysis/common"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"

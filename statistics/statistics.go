@@ -1,13 +1,10 @@
 package main
 
 import (
-	"../common"
 	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
+	"github.com/jonfk/training-log-analysis/common"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 type Statistics struct {
@@ -20,35 +17,12 @@ func main() {
 		os.Exit(0)
 	}
 
-	traininglogs := parseYaml(args[0])
+	traininglogs, err := common.ParseYaml(args[0], true)
+	if err != nil {
+		log.Fatal("Error parsing yaml: %s\n", err)
+	}
 
 	calculateStatistics(traininglogs)
-}
-
-func parseYaml(directory string) []common.TrainingLog {
-	var result []common.TrainingLog
-	toProcess, err := ioutil.ReadDir(directory)
-	if err != nil {
-		log.Fatalf("%s\n", err)
-	}
-	for i := range toProcess {
-		file := filepath.Join(directory, toProcess[i].Name())
-		t := common.TrainingLog{}
-
-		data, err := ioutil.ReadFile(file)
-		if err != nil {
-			log.Fatalf("%s\n", err)
-		}
-
-		err = yaml.Unmarshal(data, &t)
-		if err != nil {
-			log.Fatalf("Error parsing yaml file %s\n%v", file, err)
-		}
-		result = append(result, t)
-	}
-
-	// fmt.Printf("--- TrainingLogs:\n%#v\n", result)
-	return result
 }
 
 func calculateStatistics(logs []common.TrainingLog) Statistics {
