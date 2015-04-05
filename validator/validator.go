@@ -24,9 +24,11 @@ var validExerciseNames []string = []string{
 	"paused high bar squats",
 	"paused low bar squats",
 	"paused front squats",
+	"db lunges",
 	// Pressing
 	"close grip bench press",
 	"bench press",
+	"tng bench press",
 	"overhead press",
 	"behind the neck press",
 	"db incline press",
@@ -34,6 +36,7 @@ var validExerciseNames []string = []string{
 	// Pulling
 	"sumo deadlift",
 	"conventional deadlift",
+	"stiff leg deadlift",
 	"deficit conventional deadlift",
 	"block pulls",
 	"sumo block pulls",
@@ -44,6 +47,8 @@ var validExerciseNames []string = []string{
 	"pull ups",
 	"chin ups",
 	"lat pulldowns",
+	// Arms
+	"alternating db curls",
 }
 
 func main() {
