@@ -3,6 +3,7 @@ package common
 import (
 	"errors"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"path/filepath"
@@ -53,7 +54,8 @@ func ParseYaml(directory string, print bool) ([]TrainingLog, error) {
 	if print {
 		fmt.Printf("[ParseYaml] TrainingLogs:\n")
 		for i := range result {
-			fmt.Printf("- %#v\n", result[i])
+			//fmt.Printf("- %#v\n", result[i])
+			spew.Printf("- %v\n", result[i])
 		}
 	}
 	return result, nil
