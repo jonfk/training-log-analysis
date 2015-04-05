@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e -x
 
-rm influxdb_0.9.0-rc18_amd64.deb
+rm influxdb_0.9.0-rc18_amd64.deb || true
 
-rm -rf /var/influxdb/jonfk/
+docker rmi $(docker images -q -f dangling=true) || true
+docker rm influxdb || true
+
+sudo rm -rf /var/influxdb/

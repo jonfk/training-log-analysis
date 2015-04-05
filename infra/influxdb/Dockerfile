@@ -23,14 +23,19 @@ COPY conf /etc/jonfk
 EXPOSE 8083
 EXPOSE 8086
 EXPOSE 8087
-#EXPOSE 8090
-#EXPOSE 8099
+EXPOSE 8090
+EXPOSE 8099
 
 #[Influxdb] Volumes
-VOLUME /var/influxdb/jonfk/raft
+#VOLUME /var/influxdb/jonfk/raft
+#VOLUME /var/influxdb/jonfk/state
+
 VOLUME /var/influxdb/jonfk/db
-VOLUME /var/influxdb/jonfk/state
+VOLUME /var/log/jonfk/
+
+WORKDIR /var/log/jonfk
 
 #[Influxdb] run
 #CMD /opt/influxdb/influxd -pidfile /var/opt/influxdb/run/influxd.pid -config /etc/opt/influxdb/influxdb.conf
-CMD ["/opt/influxdb/influxd", "-pidfile", "/var/opt/influxdb/run/influxd.pid", "-config", "/etc/jonfk/influxdb.conf"]
+#CMD ["/opt/influxdb/influxd", "-pidfile", "/var/opt/influxdb/run/influxd.pid", "-config", "/etc/jonfk/influxdb.conf"]
+CMD /opt/influxdb/influxd -pidfile /var/opt/influxdb/run/influxd.pid -config /etc/jonfk/influxdb.conf
