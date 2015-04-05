@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/jonfk/training-log-analysis/common"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -15,9 +16,44 @@ var Verbose bool = false
 var Flexible bool = false
 var Output bool = false
 
+var validExerciseNames []string = []string{
+	// Squats
+	"high bar squats",
+	"low bar squats",
+	"front squats",
+	"paused high bar squats",
+	"paused low bar squats",
+	"paused front squats",
+	// Pressing
+	"close grip bench press",
+	"bench press",
+	"overhead press",
+	"behind the neck press",
+	"db incline press",
+	"db flyes",
+	// Pulling
+	"sumo deadlift",
+	"conventional deadlift",
+	"deficit conventional deadlift",
+	"block pulls",
+	"sumo block pulls",
+	"bent over rows",
+	"pendlay rows",
+	"chest supported rows",
+	// Back
+	"pull ups",
+	"chin ups",
+	"lat pulldowns",
+}
+
 func main() {
 	// Parse Command Line arguments
 	args := os.Args[1:] // Ignore program name
+
+	if len(args) == 0 {
+		printUsage()
+		os.Exit(0)
+	}
 
 	for i := range args {
 		if isLongFlag(args[i]) {
@@ -113,8 +149,18 @@ func process(arg string) {
 		if err != nil {
 			log.Fatalf("Error parsing yaml file %s\n%v", arg, err)
 		}
+
+		// validate exercises
+		for i := range t.Workout {
+			if !isValidExercise(t.Workout[i].Name) {
+				fmt.Printf("File %s contains invalid exercise %s\n", arg, t.Workout[i].Name)
+			}
+			//fmt.Printf("Exercise: %s\n", t.Workout[i].Name)
+		}
+
 		if Verbose {
-			fmt.Printf("--- TrainingLog:\n%#v\n\n", t)
+			//fmt.Printf("--- TrainingLog:\n%#v\n\n", t)
+			spew.Printf("--- TrainingLog:\n%#v\n\n", t)
 		}
 
 		// Output flag set
@@ -129,6 +175,15 @@ func process(arg string) {
 
 }
 
+func isValidExercise(name string) bool {
+	for i := range validExerciseNames {
+		if name == validExerciseNames[i] {
+			return true
+		}
+	}
+	return false
+}
+
 func printUsage() {
 	usage := `
 Usage [-hvfo][--help][--verbose][--flexible][--output] [Arguments...]
@@ -137,7 +192,8 @@ Options:
 --help, -h       show this message, then exit
 --verbose, -v    Print the internal datastructure the yaml mapped to
 --flexible, -f   Verify the yaml rather than the template
---output, -o     Output the idealized template`
+--output, -o     Output the idealized template
+`
 	fmt.Printf("%s\n", usage)
 }
 
