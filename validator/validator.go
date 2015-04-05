@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 var Verbose bool = false
@@ -161,6 +162,13 @@ func process(arg string) {
 				fmt.Printf("File %s contains invalid exercise %s\n", arg, t.Workout[i].Name)
 			}
 			//fmt.Printf("Exercise: %s\n", t.Workout[i].Name)
+		}
+
+		// validate time
+		const reference = "2006-01-02 3:04PM"
+		_, err = time.Parse(reference, t.Date+" "+t.Time)
+		if err != nil {
+			fmt.Printf("Error parsing time in %s\n", arg)
 		}
 
 		if Verbose {
