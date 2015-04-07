@@ -7,10 +7,13 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"path/filepath"
+	"strconv"
+	"strings"
 )
 
 const Time_ref = "2006-01-02 3:04PM"
 
+// Yaml structs
 type Exercise struct {
 	Name     string `name`
 	Weight   string `weight,omitempty`
@@ -29,6 +32,12 @@ type TrainingLog struct {
 	Total      string     `total,omitempty`
 	Workout    []Exercise `workout`
 	Notes      []string   `notes,omitempty`
+}
+
+// Parsed Structs
+type Weight struct {
+	Value float32
+	Unit  string // kg or lbs
 }
 
 func ParseYaml(directory string, print bool) ([]TrainingLog, error) {
@@ -61,4 +70,48 @@ func ParseYaml(directory string, print bool) ([]TrainingLog, error) {
 		}
 	}
 	return result, nil
+}
+
+func ParseWeight(input string) (Weight, error) {
+	var (
+		value float64
+		unit  string
+		err   error
+	)
+	if strings.Contains(input, " ") {
+		result := strings.Split(input, " ")
+		value, err = strconv.ParseFloat(result[0], 32)
+		if err != nil {
+			return Weight{}, err
+		}
+		switch strings.ToLower(result[1]) {
+		case "lbs":
+			unit = "lbs"
+		case "kg":
+			unit = "kg"
+		case "kgs":
+			unit = "kg"
+		default:
+			return Weight{}, errors.New("Unknown unit: " + result[1])
+		}
+		return Weight{float32(value), unit}, nil
+	}
+	switch {
+	case strings.Index(input, "lbs") != -1:
+		result := strings.Split(input, "lbs")
+		value, err = strconv.ParseFloat(result[0], 32)
+		if err != nil {
+			return Weight{}, err
+		}
+		return Weight{float32(value), "lbs"}, nil
+	case strings.Index(input, "kg") != -1:
+		result := strings.Split(input, "kg")
+		value, err = strconv.ParseFloat(result[0], 32)
+		if err != nil {
+			return Weight{}, err
+		}
+		return Weight{float32(value), "kg"}, nil
+	default:
+		return Weight{}, errors.New("Unknown unit in : " + input)
+	}
 }

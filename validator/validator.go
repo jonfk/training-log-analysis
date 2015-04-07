@@ -161,7 +161,10 @@ func process(arg string) {
 			if !isValidExercise(t.Workout[i].Name) {
 				fmt.Printf("File %s contains invalid exercise %s\n", arg, t.Workout[i].Name)
 			}
-			//fmt.Printf("Exercise: %s\n", t.Workout[i].Name)
+			_, err := common.ParseWeight(t.Workout[i].Weight)
+			if err != nil {
+				fmt.Printf("File %s encountered error: %s in weight for %s\n", arg, err, t.Workout[i].Name)
+			}
 		}
 
 		// validate time
