@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 )
 
+const Time_ref = "2006-01-02 3:04PM"
+
 type Exercise struct {
 	Name     string `name`
 	Weight   string `weight,omitempty`

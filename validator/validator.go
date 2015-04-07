@@ -165,8 +165,7 @@ func process(arg string) {
 		}
 
 		// validate time
-		const reference = "2006-01-02 3:04PM"
-		_, err = time.Parse(reference, t.Date+" "+t.Time)
+		_, err = time.Parse(common.Time_ref, t.Date+" "+t.Time)
 		if err != nil {
 			fmt.Printf("Error parsing time in %s\n", arg)
 		}
