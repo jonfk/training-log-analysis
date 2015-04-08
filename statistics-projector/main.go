@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -21,6 +22,15 @@ var (
 	InfluxUser = "jonfk"
 	InfluxPwd  = "password"
 )
+
+type ExerciseMetric struct {
+	Name      string
+	Username  string
+	Unit      string
+	Value     float32
+	Set       string
+	Timestamp time.Time
+}
 
 func init() {
 	if os.Getenv("INFLUX_USER") == "" || os.Getenv("INFLUX_PWD") == "" {
@@ -45,12 +55,13 @@ func main() {
 
 	connection := initInfluxdB(InfluxDBHost, InfluxDBPort)
 
-	ProjectExercise(connection, "low bar squats", traininglogs)
+	ProjectExerciseIntensity(connection, "low bar squats", traininglogs)
 }
 
-func ProjectExercise(conn *client.Client, name string, logs []common.TrainingLog) {
+func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	for _, trainLog := range logs {
+	Loop1:
 		for _, exercise := range trainLog.Workout {
 			if exercise.Name == name {
 				pTime, err := time.Parse(common.Time_ref, trainLog.Date+" "+trainLog.Time)
@@ -59,6 +70,8 @@ func ProjectExercise(conn *client.Client, name string, logs []common.TrainingLog
 					continue
 				}
 
+				log.Printf("Projecting %v for %s", exercise, pTime)
+
 				weight, err := common.ParseWeight(exercise.Weight)
 				if err != nil {
 					log.Printf("Error parsing weight for %s in %s with error %s\n", exercise.Name, trainLog.Date, err)
@@ -66,11 +79,18 @@ func ProjectExercise(conn *client.Client, name string, logs []common.TrainingLog
 				}
 				// Intensity metric
 				metric := ExerciseMetric{
-					Name:      exercise.Name + "_intensity",
+					Name:      strings.Replace(exercise.Name, " ", "_", -1) + "_intensity",
 					Username:  User,
 					Value:     weight.Value,
 					Unit:      weight.Unit,
 					Timestamp: pTime,
+				}
+				// If 2 values with same timestamp are inserted the first one will
+				// be overwritten by influx
+				for _, mtrs := range metricsToBeInserted {
+					if mtrs.Timestamp.Equal(metric.Timestamp) && mtrs.Value > metric.Value {
+						continue Loop1
+					}
 				}
 				metricsToBeInserted = append(metricsToBeInserted, metric)
 			}
@@ -118,14 +138,6 @@ func queryDB(con *client.Client, cmd string) (res []client.Result, err error) {
 		res = response.Results
 	}
 	return
-}
-
-type ExerciseMetric struct {
-	Name      string
-	Username  string
-	Unit      string
-	Value     float32
-	Timestamp time.Time
 }
 
 func writePoints(con *client.Client, metrics []ExerciseMetric) error {
