@@ -10,47 +10,12 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
+	// "time"
 )
 
 var Verbose bool = false
 var Flexible bool = false
 var Output bool = false
-
-var validExerciseNames []string = []string{
-	// Squats
-	"high bar squats",
-	"low bar squats",
-	"front squats",
-	"paused high bar squats",
-	"paused low bar squats",
-	"paused front squats",
-	"db lunges",
-	// Pressing
-	"close grip bench press",
-	"bench press",
-	"tng bench press",
-	"overhead press",
-	"behind the neck press",
-	"db incline press",
-	"db flyes",
-	// Pulling
-	"sumo deadlift",
-	"conventional deadlift",
-	"stiff leg deadlift",
-	"deficit conventional deadlift",
-	"block pulls",
-	"sumo block pulls",
-	"bent over rows",
-	"pendlay rows",
-	"chest supported rows",
-	// Back
-	"pull ups",
-	"chin ups",
-	"lat pulldowns",
-	// Arms
-	"alternating db curls",
-}
 
 func main() {
 	// Parse Command Line arguments
@@ -149,28 +114,16 @@ func process(arg string) {
 			return
 		}
 
-		t := common.TrainingLog{}
+		rawT := common.TrainingLogY{}
 
-		err = yaml.Unmarshal(data, &t)
+		err = yaml.Unmarshal(data, &rawT)
 		if err != nil {
-			log.Fatalf("Error parsing yaml file %s\n%v", arg, err)
+			log.Fatalf("Error parsing yaml file %s\n\t%s", arg, err)
 		}
 
-		// validate exercises
-		for i := range t.Workout {
-			if !isValidExercise(t.Workout[i].Name) {
-				fmt.Printf("File %s contains invalid exercise %s\n", arg, t.Workout[i].Name)
-			}
-			_, err := common.ParseWeight(t.Workout[i].Weight)
-			if err != nil {
-				fmt.Printf("File %s encountered error: %s in weight for %s\n", arg, err, t.Workout[i].Name)
-			}
-		}
-
-		// validate time
-		_, err = time.Parse(common.Time_ref, t.Date+" "+t.Time)
+		t, err := common.ParseYaml(arg)
 		if err != nil {
-			fmt.Printf("Error parsing time in %s\n", arg)
+			fmt.Printf("Error parsing %s with\n\t%s\n", arg, err)
 		}
 
 		if Verbose {
@@ -188,15 +141,6 @@ func process(arg string) {
 		}
 	}
 
-}
-
-func isValidExercise(name string) bool {
-	for i := range validExerciseNames {
-		if name == validExerciseNames[i] {
-			return true
-		}
-	}
-	return false
 }
 
 func printUsage() {
