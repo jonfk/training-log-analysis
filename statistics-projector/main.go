@@ -46,8 +46,10 @@ func main() {
 
 	ProjectExerciseIntensity(connection, "low bar squats", traininglogs)
 	ProjectExerciseTonnage(connection, "low bar squats", traininglogs)
+	ProjectExerciseBarLifts(connection, "low bar squats", traininglogs)
 	ProjectExerciseIntensity(connection, "bench press", traininglogs)
 	ProjectExerciseTonnage(connection, "bench press", traininglogs)
+	ProjectExerciseBarLifts(connection, "bench press", traininglogs)
 }
 
 // Projections
@@ -102,7 +104,36 @@ func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.Trai
 				Unit:      unit,
 				Timestamp: trainLog.Timestamp,
 			}
-			log.Printf("[Tonnage]Projecting %v for %s", exercise, trainLog.Timestamp)
+			log.Printf("[Tonnage]Projecting %v for %s", name, trainLog.Timestamp)
+			metricsToBeInserted = append(metricsToBeInserted, metric)
+		}
+	}
+	writePoints(conn, metricsToBeInserted)
+}
+
+func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.TrainingLog) {
+	var metricsToBeInserted []ExerciseMetric
+	var unit string
+	for _, trainLog := range logs {
+		var projectDay bool = false
+		var barliftsPerDay int = 0
+		for _, exercise := range trainLog.Workout {
+			if exercise.Name == name {
+				projectDay = true
+				barliftsPerDay += (exercise.Reps * exercise.Sets)
+				unit = exercise.Weight.Unit
+			}
+		}
+		if projectDay {
+			// Barlifts metric
+			metric := ExerciseMetric{
+				Name:      strings.Replace(name, " ", "_", -1) + "_barlifts",
+				Username:  User,
+				Value:     float32(barliftsPerDay),
+				Unit:      unit,
+				Timestamp: trainLog.Timestamp,
+			}
+			log.Printf("[Barlifts]Projecting %v for %s", name, trainLog.Timestamp)
 			metricsToBeInserted = append(metricsToBeInserted, metric)
 		}
 	}
