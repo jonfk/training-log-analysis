@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"time"
 )
 
 const (
@@ -38,7 +37,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	traininglogs, err := common.ParseYamlDirRaw(args[0])
+	traininglogs, err := common.ParseYamlDir(args[0])
 	if err != nil {
 		log.Fatal("Error parsing yaml: %s\n", err)
 	}
@@ -49,30 +48,19 @@ func main() {
 }
 
 // Projections
-func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.TrainingLogY) {
+func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	for _, trainLog := range logs {
 	Loop1:
 		for _, exercise := range trainLog.Workout {
 			if exercise.Name == name {
-				pTime, err := time.Parse(common.Time_ref, trainLog.Date+" "+trainLog.Time)
-				if err != nil {
-					log.Printf("Error parsing time in %s\n", trainLog.Date)
-					continue
-				}
-
-				weight, err := common.ParseWeight(exercise.Weight)
-				if err != nil {
-					log.Printf("Error parsing weight for %s in %s with error %s\n", exercise.Name, trainLog.Date, err)
-					continue
-				}
 				// Intensity metric
 				metric := ExerciseMetric{
 					Name:      strings.Replace(exercise.Name, " ", "_", -1) + "_intensity",
 					Username:  User,
-					Value:     weight.Value,
-					Unit:      weight.Unit,
-					Timestamp: pTime,
+					Value:     exercise.Weight.Value,
+					Unit:      exercise.Weight.Unit,
+					Timestamp: trainLog.Timestamp,
 				}
 				// If 2 values with same timestamp are inserted the first one will
 				// be overwritten by influx
@@ -81,7 +69,7 @@ func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.Tr
 						continue Loop1
 					}
 				}
-				log.Printf("Projecting %v for %s", exercise, pTime)
+				log.Printf("Projecting %v for %s", exercise, trainLog.Timestamp)
 				metricsToBeInserted = append(metricsToBeInserted, metric)
 			}
 		}
