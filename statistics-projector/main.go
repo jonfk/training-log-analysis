@@ -45,6 +45,9 @@ func main() {
 	connection := initInfluxdB(InfluxDBHost, InfluxDBPort)
 
 	ProjectExerciseIntensity(connection, "low bar squats", traininglogs)
+	ProjectExerciseTonnage(connection, "low bar squats", traininglogs)
+	ProjectExerciseIntensity(connection, "bench press", traininglogs)
+	ProjectExerciseTonnage(connection, "bench press", traininglogs)
 }
 
 // Projections
@@ -69,7 +72,7 @@ func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.Tr
 						continue Loop1
 					}
 				}
-				log.Printf("Projecting %v for %s", exercise, trainLog.Timestamp)
+				log.Printf("[Intensity]Projecting %v for %s", exercise, trainLog.Timestamp)
 				metricsToBeInserted = append(metricsToBeInserted, metric)
 			}
 		}
@@ -77,13 +80,31 @@ func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.Tr
 	writePoints(conn, metricsToBeInserted)
 }
 
-// func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.TrainingLogY) {
-// 	var metricsToBeInserted []ExerciseMetric
-// 	for _, trainLog := range logs {
-// 		var tonnagePerDay float32
-// 		for _, exercise := range trainLog.Workout {
-// 			if exercise.Name == name {
-// 			}
-// 		}
-// 	}
-// }
+func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.TrainingLog) {
+	var metricsToBeInserted []ExerciseMetric
+	var unit string
+	for _, trainLog := range logs {
+		var projectDay bool = false
+		var tonnagePerDay float32 = 0
+		for _, exercise := range trainLog.Workout {
+			if exercise.Name == name {
+				projectDay = true
+				tonnagePerDay += (exercise.Weight.Value * float32(exercise.Reps) * float32(exercise.Sets))
+				unit = exercise.Weight.Unit
+			}
+		}
+		if projectDay {
+			// Tonnage metric
+			metric := ExerciseMetric{
+				Name:      strings.Replace(name, " ", "_", -1) + "_tonnage",
+				Username:  User,
+				Value:     tonnagePerDay,
+				Unit:      unit,
+				Timestamp: trainLog.Timestamp,
+			}
+			log.Printf("[Tonnage]Projecting %v for %s", exercise, trainLog.Timestamp)
+			metricsToBeInserted = append(metricsToBeInserted, metric)
+		}
+	}
+	writePoints(conn, metricsToBeInserted)
+}
