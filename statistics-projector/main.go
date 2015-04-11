@@ -1,5 +1,16 @@
 // statistics-projector saves various statistics from training logs
 // to influxdb for later analysis and display.
+//
+// statistics-projector uses INFLUX_USER and INFLUX_PWD environment variables
+// is they are set for usernamem and password of the influxdb database.
+//
+//  Usage: statistics-projector <directory>
+//  <directory> is a directory with training log files
+//
+// statistics-projector currently does the following projections:
+// - BarLifts: number of reps per exercise per day
+// - Intensity: intensity of highest working set for given exercise per day
+// - Tonnage: total weight lifted by multiplying the weight, reps and sets per exercise per day
 package main
 
 import (
