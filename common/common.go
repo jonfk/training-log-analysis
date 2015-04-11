@@ -1,3 +1,5 @@
+// Package common provides parsing and datastructures
+// used by other packages in training-log-analysis.
 package common
 
 import (
@@ -13,7 +15,9 @@ import (
 
 const Time_ref = "2006-01-02 3:04PM"
 
-// Yaml structs
+// ExerciseY, EventY and TrainingLogY are 'raw' structs.
+// They are not meant to be used directly but instead to be used
+// by the yaml marshaller and unmarshaller.
 type ExerciseY struct {
 	Name     string `name`
 	Weight   string `weight,omitempty`
@@ -36,8 +40,7 @@ type TrainingLogY struct {
 	Notes      []string    `notes,omitempty`
 }
 
-// Validation Constraints
-
+// List of valid exercise names to be used in training logs.
 var validExerciseNames []string = []string{
 	// Squats
 	"high bar squats",
@@ -73,6 +76,8 @@ var validExerciseNames []string = []string{
 	"alternating db curls",
 }
 
+// IsValidExercise verifies whether it's argument is part of the
+// list of valid exercises.
 func IsValidExercise(name string) bool {
 	for i := range validExerciseNames {
 		if name == validExerciseNames[i] {
@@ -82,7 +87,7 @@ func IsValidExercise(name string) bool {
 	return false
 }
 
-// Parsed Structs
+// Weight represents a weight value and it's unit.
 type Weight struct {
 	Value float32
 	Unit  string // kg or lbs
@@ -96,6 +101,10 @@ type Exercise struct {
 	Exertion string
 }
 
+// TrainingLog is a parsed representation of a training log
+// with a valid timestamp, duration, workout, notes and bodyweight.
+// If the name of Event is empty, that means the training log is
+// for a normal training day.
 type TrainingLog struct {
 	Timestamp  time.Time
 	Duration   time.Duration
@@ -105,12 +114,18 @@ type TrainingLog struct {
 	Notes      []string
 }
 
+// Event is used for special days such as a competition day or
+// mock meet
 type Event struct {
 	Name  string
 	Wilks float32
 	Total Weight
 }
 
+// ParseYaml takes a path to a file containing a
+// valid training log in yaml format and returns a TrainingLog.
+// If an error occured in parsing the file, an empty TrainingLog and
+// the error is returned.
 func ParseYaml(inputPath string) (TrainingLog, error) {
 	data, err := ioutil.ReadFile(inputPath)
 	if err != nil {
@@ -190,6 +205,10 @@ func ParseYaml(inputPath string) (TrainingLog, error) {
 		Notes:      rawLog.Notes,
 	}, nil
 }
+
+// ParseYamlDir takes a path to a directory containing training log files
+// and returns a []TrainingLog.
+// If an error occured, it returns nil and the error.
 func ParseYamlDir(dirPath string) ([]TrainingLog, error) {
 	var result []TrainingLog
 	toProcess, err := ioutil.ReadDir(dirPath)
@@ -207,6 +226,11 @@ func ParseYamlDir(dirPath string) ([]TrainingLog, error) {
 	return result, nil
 }
 
+// ParseWeight takes a string such as
+//  "315lbs" or "68.5kg"
+// and returns a Weight.
+// If an error occurs an empty Weight and the error
+// is returned
 func ParseWeight(input string) (Weight, error) {
 	var (
 		value float64
@@ -251,7 +275,8 @@ func ParseWeight(input string) (Weight, error) {
 	}
 }
 
-// Raw yaml parsing functions
+// ParseYamlDirRaw takes a path to a directory containing training log files and
+// returns []TrainingLogY. It is a helper function and not meant to be used directly.
 func ParseYamlDirRaw(directory string) ([]TrainingLogY, error) {
 	var result []TrainingLogY
 	toProcess, err := ioutil.ReadDir(directory)
