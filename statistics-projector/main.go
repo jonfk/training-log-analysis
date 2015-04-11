@@ -12,7 +12,8 @@ import (
 )
 
 const (
-	User         = "jonathan" // Hard coded for me but should be changed eventually
+	// Hard coded for me but should be changed eventually
+	User         = "jonathan"
 	influxDBHost = "localhost"
 	influxDBPort = 8086
 	influxDB     = "traininglog"
@@ -95,7 +96,7 @@ func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.Trai
 	var metricsToBeInserted []ExerciseMetric
 	var unit string
 	for _, trainLog := range logs {
-		var projectDay bool = false
+		var projectDay = false
 		var tonnagePerDay float32
 		for _, exercise := range trainLog.Workout {
 			if exercise.Name == name {
