@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+// Convinience struct for an exercise metric to be used by
+// WritePoints.
 type ExerciseMetric struct {
 	Name      string
 	Username  string
@@ -44,7 +46,7 @@ func initInfluxdB(host string, port int) *client.Client {
 }
 
 // queryDB convenience function to query the database
-func queryDB(con *client.Client, cmd string) (res []client.Result, err error) {
+func QueryDB(con *client.Client, cmd string) (res []client.Result, err error) {
 	q := client.Query{
 		Command:  cmd,
 		Database: InfluxDB,
@@ -58,7 +60,10 @@ func queryDB(con *client.Client, cmd string) (res []client.Result, err error) {
 	return
 }
 
-func writePoints(con *client.Client, metrics []ExerciseMetric) error {
+// WritePoints is a utility function used to write a []ExerciseMetric
+// to the database in a batch using the connection supplied.
+// Error is nil unless the write fails.
+func WritePoints(con *client.Client, metrics []ExerciseMetric) error {
 	var (
 		points = make([]client.Point, len(metrics))
 	)

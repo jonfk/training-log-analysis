@@ -52,7 +52,11 @@ func main() {
 	ProjectExerciseBarLifts(connection, "bench press", traininglogs)
 }
 
-// Projections
+// ------------ Projections -------------
+
+// ProjecttExerciseIntensity takes the name of a valid exercise, a connection to an influxdb database
+// and a list of []common.TrainingLog. It saves the intensity of the highest working set of that exercise
+// per day.
 func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	for _, trainLog := range logs {
@@ -79,9 +83,12 @@ func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.Tr
 			}
 		}
 	}
-	writePoints(conn, metricsToBeInserted)
+	WritePoints(conn, metricsToBeInserted)
 }
 
+// ProjectExerciseTonnage takes the name of a valid exercise, a connection to influxdb and
+// a []common.TrainingLog and saves the total weight of the exercise per day.
+// It assumes the exercise has the same unit on the same day.
 func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	var unit string
@@ -108,9 +115,11 @@ func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.Trai
 			metricsToBeInserted = append(metricsToBeInserted, metric)
 		}
 	}
-	writePoints(conn, metricsToBeInserted)
+	WritePoints(conn, metricsToBeInserted)
 }
 
+// ProjectExerciseBarLifts takes a valid exercise name, a connection to influxdb and a
+// []common.TrainingLog. It saves the total number of reps done on the exercise per day.
 func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	var unit string
@@ -137,5 +146,5 @@ func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.Tra
 			metricsToBeInserted = append(metricsToBeInserted, metric)
 		}
 	}
-	writePoints(conn, metricsToBeInserted)
+	WritePoints(conn, metricsToBeInserted)
 }
