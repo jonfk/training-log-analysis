@@ -98,6 +98,8 @@ type Weight struct {
 	Unit  string // kg or lbs
 }
 
+// Exercise represents an exercise with Name, Weight, Sets, Reps and Exertion.
+// Exertion is optional and Name should be part of ValidExerciseNames.
 type Exercise struct {
 	Name     string
 	Weight   Weight
