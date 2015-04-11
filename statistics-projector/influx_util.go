@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// Convinience struct for an exercise metric to be used by
+// ExerciseMetric is a convinience struct to be used by
 // WritePoints.
 type ExerciseMetric struct {
 	Name      string
@@ -45,7 +45,7 @@ func initInfluxdB(host string, port int) *client.Client {
 	return con
 }
 
-// queryDB convenience function to query the database
+// QueryDB is a convenience function to query the database
 func QueryDB(con *client.Client, cmd string) (res []client.Result, err error) {
 	q := client.Query{
 		Command:  cmd,

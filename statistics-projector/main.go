@@ -1,3 +1,5 @@
+// statistics-projector saves various statistics from training logs
+// to influxdb for later analysis and display.
 package main
 
 import (
@@ -10,23 +12,23 @@ import (
 )
 
 const (
-	User         = "jonathan"
-	InfluxDBHost = "localhost"
-	InfluxDBPort = 8086
-	InfluxDB     = "traininglog"
+	User         = "jonathan" // Hard coded for me but should be changed eventually
+	influxDBHost = "localhost"
+	influxDBPort = 8086
+	influxDB     = "traininglog"
 )
 
 var (
-	InfluxUser = "jonfk"
-	InfluxPwd  = "password"
+	influxUser = "jonfk"
+	influxPwd  = "password"
 )
 
 func init() {
 	if os.Getenv("INFLUX_USER") == "" || os.Getenv("INFLUX_PWD") == "" {
 		log.Println("Env INFLUX_USER and INFLUX_PWD are unset, using default user and password")
 	} else {
-		InfluxUser = os.Getenv("INFLUX_USER")
-		InfluxPwd = os.Getenv("INFLUX_PWD")
+		influxUser = os.Getenv("INFLUX_USER")
+		influxPwd = os.Getenv("INFLUX_PWD")
 	}
 }
 
@@ -39,10 +41,10 @@ func main() {
 
 	traininglogs, err := common.ParseYamlDir(args[0])
 	if err != nil {
-		log.Fatal("Error parsing yaml: %s\n", err)
+		log.Fatal("error parsing yaml: %s\n", err)
 	}
 
-	connection := initInfluxdB(InfluxDBHost, InfluxDBPort)
+	connection := initInfluxdB(influxDBHost, influxDBPort)
 
 	ProjectExerciseIntensity(connection, "low bar squats", traininglogs)
 	ProjectExerciseTonnage(connection, "low bar squats", traininglogs)
@@ -54,7 +56,7 @@ func main() {
 
 // ------------ Projections -------------
 
-// ProjecttExerciseIntensity takes the name of a valid exercise, a connection to an influxdb database
+// ProjectExerciseIntensity takes the name of a valid exercise, a connection to an influxdb database
 // and a list of []common.TrainingLog. It saves the intensity of the highest working set of that exercise
 // per day.
 func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.TrainingLog) {
@@ -94,7 +96,7 @@ func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.Trai
 	var unit string
 	for _, trainLog := range logs {
 		var projectDay bool = false
-		var tonnagePerDay float32 = 0
+		var tonnagePerDay float32
 		for _, exercise := range trainLog.Workout {
 			if exercise.Name == name {
 				projectDay = true
@@ -124,8 +126,8 @@ func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.Tra
 	var metricsToBeInserted []ExerciseMetric
 	var unit string
 	for _, trainLog := range logs {
-		var projectDay bool = false
-		var barliftsPerDay int = 0
+		var projectDay = false
+		var barliftsPerDay = 0
 		for _, exercise := range trainLog.Workout {
 			if exercise.Name == name {
 				projectDay = true

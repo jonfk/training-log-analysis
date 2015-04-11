@@ -13,10 +13,11 @@ import (
 	"time"
 )
 
+// Time_ref is the reference time format used it training logs
 const Time_ref = "2006-01-02 3:04PM"
 
-// ExerciseY, EventY and TrainingLogY are 'raw' structs.
-// They are not meant to be used directly but instead to be used
+// ExerciseY is a 'raw' struct.
+// 'raw' structs are not meant to be used directly but instead to be used
 // by the yaml marshaller and unmarshaller.
 type ExerciseY struct {
 	Name     string `name`
@@ -25,11 +26,15 @@ type ExerciseY struct {
 	Reps     string `reps`
 	Exertion string `exertion`
 }
+
+// EventY is a 'raw' struct.
 type EventY struct {
 	Name  string `name`
 	Wilks string `wilks`
 	Total string `total`
 }
+
+// TrainingLogY is a 'raw' struct.
 type TrainingLogY struct {
 	Date       string      `date`
 	Time       string      `time,omitempty`
@@ -41,7 +46,7 @@ type TrainingLogY struct {
 }
 
 // List of valid exercise names to be used in training logs.
-var validExerciseNames []string = []string{
+var validExerciseNames = []string{
 	// Squats
 	"high bar squats",
 	"low bar squats",
@@ -129,31 +134,31 @@ type Event struct {
 func ParseYaml(inputPath string) (TrainingLog, error) {
 	data, err := ioutil.ReadFile(inputPath)
 	if err != nil {
-		return TrainingLog{}, fmt.Errorf("Error reading file %s with\n\t%s\n", inputPath, err)
+		return TrainingLog{}, fmt.Errorf("error reading file %s with\n\t%s\n", inputPath, err)
 	}
 
 	var rawLog TrainingLogY
 
 	err = yaml.Unmarshal(data, &rawLog)
 	if err != nil {
-		return TrainingLog{}, fmt.Errorf("Error parsing yaml file %s\n\t%s\n", inputPath, err)
+		return TrainingLog{}, fmt.Errorf("error parsing yaml file %s\n\t%s\n", inputPath, err)
 	}
 
 	// validation and parsing
 
 	pTime, err := time.Parse(Time_ref, rawLog.Date+" "+rawLog.Time)
 	if err != nil {
-		return TrainingLog{}, fmt.Errorf("Error parsing time in file %s\n\t%v", inputPath, err)
+		return TrainingLog{}, fmt.Errorf("error parsing time in file %s\n\t%v", inputPath, err)
 	}
 
 	pDuration, err := time.ParseDuration(rawLog.Length)
 	if err != nil {
-		return TrainingLog{}, fmt.Errorf("Error parsing duration %s in file %s\n\t%v", rawLog.Length, inputPath, err)
+		return TrainingLog{}, fmt.Errorf("error parsing duration %s in file %s\n\t%v", rawLog.Length, inputPath, err)
 	}
 
 	pBodyweight, err := ParseWeight(rawLog.Bodyweight)
 	if err != nil {
-		return TrainingLog{}, fmt.Errorf("Error parsing bodyweight %s in file %s\n\t%v", rawLog.Bodyweight, inputPath, err)
+		return TrainingLog{}, fmt.Errorf("error parsing bodyweight %s in file %s\n\t%v", rawLog.Bodyweight, inputPath, err)
 	}
 
 	// Event
@@ -161,11 +166,11 @@ func ParseYaml(inputPath string) (TrainingLog, error) {
 	if rawLog.Event.Name != "" {
 		pWilks, err := strconv.ParseFloat(rawLog.Event.Wilks, 32)
 		if err != nil {
-			return TrainingLog{}, fmt.Errorf("Error parsing Event Wilks %s in file %s\n\t%v", rawLog.Event.Wilks, inputPath, err)
+			return TrainingLog{}, fmt.Errorf("error parsing Event Wilks %s in file %s\n\t%v", rawLog.Event.Wilks, inputPath, err)
 		}
 		pTotal, err := ParseWeight(rawLog.Event.Total)
 		if err != nil {
-			return TrainingLog{}, fmt.Errorf("Error parsing Event Total %s in file %s\n\t%v", rawLog.Event.Total, inputPath, err)
+			return TrainingLog{}, fmt.Errorf("error parsing Event Total %s in file %s\n\t%v", rawLog.Event.Total, inputPath, err)
 		}
 		pEvent.Wilks = float32(pWilks)
 		pEvent.Total = pTotal
@@ -174,19 +179,19 @@ func ParseYaml(inputPath string) (TrainingLog, error) {
 	var exercises []Exercise
 	for _, exercise := range rawLog.Workout {
 		if !IsValidExercise(exercise.Name) {
-			return TrainingLog{}, fmt.Errorf("Error invalid exercise %s in %s\n", exercise.Name, inputPath)
+			return TrainingLog{}, fmt.Errorf("error invalid exercise %s in %s\n", exercise.Name, inputPath)
 		}
 		pWeight, err := ParseWeight(exercise.Weight)
 		if err != nil {
-			return TrainingLog{}, fmt.Errorf("Error parsing weight for %s in %s with error %s\n", exercise.Name, inputPath, err)
+			return TrainingLog{}, fmt.Errorf("error parsing weight for %s in %s with error %s\n", exercise.Name, inputPath, err)
 		}
 		sets, err := strconv.Atoi(exercise.Sets)
 		if err != nil {
-			return TrainingLog{}, fmt.Errorf("Error parsing sets for %s in %s with error %s\n", exercise.Name, inputPath, err)
+			return TrainingLog{}, fmt.Errorf("error parsing sets for %s in %s with error %s\n", exercise.Name, inputPath, err)
 		}
 		reps, err := strconv.Atoi(exercise.Reps)
 		if err != nil {
-			return TrainingLog{}, fmt.Errorf("Error parsing reps for %s in %s with error %s\n", exercise.Name, inputPath, err)
+			return TrainingLog{}, fmt.Errorf("error parsing reps for %s in %s with error %s\n", exercise.Name, inputPath, err)
 		}
 		exercises = append(exercises, Exercise{
 			Name:     exercise.Name,
@@ -271,7 +276,7 @@ func ParseWeight(input string) (Weight, error) {
 		}
 		return Weight{float32(value), "kg"}, nil
 	default:
-		return Weight{}, errors.New("Unknown unit in : " + input)
+		return Weight{}, fmt.Errorf("unknown unit in : %s", input)
 	}
 }
 
@@ -294,7 +299,7 @@ func ParseYamlDirRaw(directory string) ([]TrainingLogY, error) {
 
 		err = yaml.Unmarshal(data, &t)
 		if err != nil {
-			return nil, errors.New(fmt.Sprintf("Error parsing yaml file %s\n%v", file, err))
+			return nil, fmt.Errorf("error parsing yaml file %s\n%v", file, err)
 		}
 		result = append(result, t)
 	}
