@@ -148,7 +148,7 @@ func ParseYaml(inputPath string) (TrainingLog, error) {
 
 	// validation and parsing
 
-	pTime, err := time.Parse(Time_ref, rawLog.Date+" "+rawLog.Time)
+	pTime, err := time.Parse(TimeRef, rawLog.Date+" "+rawLog.Time)
 	if err != nil {
 		return TrainingLog{}, fmt.Errorf("error parsing time in file %s\n\t%v", inputPath, err)
 	}

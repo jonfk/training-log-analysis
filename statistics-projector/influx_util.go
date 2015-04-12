@@ -27,8 +27,8 @@ func initInfluxdB(host string, port int) *client.Client {
 
 	conf := client.Config{
 		URL:      *u,
-		Username: InfluxUser,
-		Password: InfluxPwd,
+		Username: influxUser,
+		Password: influxPwd,
 	}
 
 	con, err := client.NewClient(conf)
@@ -49,7 +49,7 @@ func initInfluxdB(host string, port int) *client.Client {
 func QueryDB(con *client.Client, cmd string) (res []client.Result, err error) {
 	q := client.Query{
 		Command:  cmd,
-		Database: InfluxDB,
+		Database: influxDB,
 	}
 	if response, err := con.Query(q); err == nil {
 		if response.Error() != nil {
@@ -85,7 +85,7 @@ func WritePoints(con *client.Client, metrics []ExerciseMetric) error {
 
 	bps := client.BatchPoints{
 		Points:          points,
-		Database:        InfluxDB,
+		Database:        influxDB,
 		RetentionPolicy: "default",
 	}
 	_, err := con.Write(bps)

@@ -58,12 +58,16 @@ func main() {
 
 	connection := initInfluxdB(influxDBHost, influxDBPort)
 
+	// Exercise Projections
 	ProjectExerciseIntensity(connection, "low bar squats", traininglogs)
 	ProjectExerciseTonnage(connection, "low bar squats", traininglogs)
 	ProjectExerciseBarLifts(connection, "low bar squats", traininglogs)
 	ProjectExerciseIntensity(connection, "bench press", traininglogs)
 	ProjectExerciseTonnage(connection, "bench press", traininglogs)
 	ProjectExerciseBarLifts(connection, "bench press", traininglogs)
+
+	// Training stats
+	ProjectTrainingDuration(connection, traininglogs)
 }
 
 // ------------ Projections -------------
@@ -159,6 +163,22 @@ func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.Tra
 			log.Printf("[Barlifts]Projecting %v for %s", name, trainLog.Timestamp)
 			metricsToBeInserted = append(metricsToBeInserted, metric)
 		}
+	}
+	WritePoints(conn, metricsToBeInserted)
+}
+
+func ProjectTrainingDuration(conn *client.Client, logs []common.TrainingLog) {
+	var metricsToBeInserted []ExerciseMetric
+	for _, trainLog := range logs {
+		metric := ExerciseMetric{
+			Name:      "training_duration",
+			Username:  User,
+			Value:     float32(trainLog.Duration.Hours()),
+			Unit:      "hours",
+			Timestamp: trainLog.Timestamp,
+		}
+		log.Printf("[Training Duration]Projecting %s", trainLog.Timestamp)
+		metricsToBeInserted = append(metricsToBeInserted, metric)
 	}
 	WritePoints(conn, metricsToBeInserted)
 }
