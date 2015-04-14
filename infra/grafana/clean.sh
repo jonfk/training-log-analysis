@@ -2,4 +2,4 @@
 set -e -x
 
 docker rmi $(docker images -q -f dangling=true) || true
-docker rm grafana || true
+docker rm -f grafana || true

@@ -7,4 +7,4 @@ fi
 
 sudo docker build -t jonfk/grafana .
 
-sudo docker run -d -p 3000:3000 --name grafana jonfk/grafana
+sudo docker run -d -p 3000:3000 --link influxdb:influxdb --name grafana jonfk/grafana
