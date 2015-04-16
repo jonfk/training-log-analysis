@@ -6,11 +6,19 @@ import Data.Data
 import qualified Data.Yaml as Yaml
 import qualified Data.Aeson.TH as Aeson
 
-data TrainingLog = TrainingLog { date :: String,
-                               time :: String,
-                               duration :: String,
-                               bodyweight :: String } deriving (Eq, Show)
+data Workout = Workout { name :: String,
+                         weight :: String,
+                         sets :: String,
+                         reps :: String,
+                         exertion :: String } deriving (Eq, Show)
 
+data TrainingLog = TrainingLog { date :: String,
+                                 time :: String,
+                                 duration :: String,
+                                 bodyweight :: String,
+                                 workout :: [Workout] } deriving (Eq, Show)
+
+Aeson.deriveJSON Aeson.defaultOptions ''Workout
 Aeson.deriveJSON Aeson.defaultOptions ''TrainingLog
 
 main = do
@@ -32,6 +40,8 @@ main = do
       trainingLog = TrainingLog{date=dateStr,
                                 time=timeStr,
                                 duration=durationStr,
-                                bodyweight=bodyweightStr}
+                                bodyweight=bodyweightStr,
+                                workout=[]}
+      filename = "./" ++ dateStr ++ ".yml"
   print trainingLog
-  print $ Yaml.encode trainingLog
+  Yaml.encodeFile filename trainingLog
