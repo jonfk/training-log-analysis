@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/jonfk/training-log-analysis/common"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -127,8 +126,7 @@ func process(arg string) {
 		}
 
 		if Verbose {
-			//fmt.Printf("--- TrainingLog:\n%#v\n\n", t)
-			spew.Printf("--- TrainingLog:\n%#v\n\n", t)
+			fmt.Printf("--- TrainingLog:\n%#v\n\n", t)
 		}
 
 		// Output flag set

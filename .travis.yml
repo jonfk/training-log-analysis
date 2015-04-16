@@ -1,0 +1,7 @@
+language: go
+
+install:
+  - go get gopkg.in/yaml.v2
+  - go get github.com/influxdb/influxdb/client
+
+script: go install ./...
