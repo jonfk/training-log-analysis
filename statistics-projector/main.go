@@ -11,6 +11,9 @@
 //  - BarLifts: number of reps per exercise per day
 //  - Intensity: intensity of highest working set for given exercise per day
 //  - Tonnage: total weight lifted by multiplying the weight, reps and sets per exercise per day
+//  - TrainingDuration: training duration per session
+//  - Frequency: frequency of exercise, a tic metric of value 1 per day
+//
 package main
 
 import (
@@ -58,13 +61,14 @@ func main() {
 
 	connection := initInfluxdB(influxDBHost, influxDBPort)
 
+	exercisesToProject := []string{"low bar squats", "bench press", "sumo deadlift", "conventional deadlift", "overhead press"}
 	// Exercise Projections
-	ProjectExerciseIntensity(connection, "low bar squats", traininglogs)
-	ProjectExerciseTonnage(connection, "low bar squats", traininglogs)
-	ProjectExerciseBarLifts(connection, "low bar squats", traininglogs)
-	ProjectExerciseIntensity(connection, "bench press", traininglogs)
-	ProjectExerciseTonnage(connection, "bench press", traininglogs)
-	ProjectExerciseBarLifts(connection, "bench press", traininglogs)
+	for _, exercise := range exercisesToProject {
+		ProjectExerciseIntensity(connection, exercise, traininglogs)
+		ProjectExerciseTonnage(connection, exercise, traininglogs)
+		ProjectExerciseBarLifts(connection, exercise, traininglogs)
+		ProjectExerciseFrequency(connection, exercise, traininglogs)
+	}
 
 	// Training stats
 	ProjectTrainingDuration(connection, traininglogs)
@@ -179,6 +183,25 @@ func ProjectTrainingDuration(conn *client.Client, logs []common.TrainingLog) {
 		}
 		log.Printf("[Training Duration]Projecting %s", trainLog.Timestamp)
 		metricsToBeInserted = append(metricsToBeInserted, metric)
+	}
+	WritePoints(conn, metricsToBeInserted)
+}
+
+func ProjectExerciseFrequency(conn *client.Client, name string, logs []common.TrainingLog) {
+	var metricsToBeInserted []ExerciseMetric
+	for _, trainLog := range logs {
+		for _, exercise := range trainLog.Workout {
+			if exercise.Name == name {
+				metric := ExerciseMetric{
+					Name:      strings.Replace(name, " ", "_", -1) + "_frequency",
+					Username:  User,
+					Value:     1,
+					Timestamp: trainLog.Timestamp,
+				}
+				log.Printf("[Exercise Frequency]Projecting %v for %s", name, trainLog.Timestamp)
+				metricsToBeInserted = append(metricsToBeInserted, metric)
+			}
+		}
 	}
 	WritePoints(conn, metricsToBeInserted)
 }
