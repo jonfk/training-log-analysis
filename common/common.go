@@ -58,6 +58,7 @@ var validExerciseNames = []string{
 	// Pressing
 	"close grip bench press",
 	"bench press",
+	"incline bench press",
 	"tng bench press",
 	"overhead press",
 	"behind the neck press",
