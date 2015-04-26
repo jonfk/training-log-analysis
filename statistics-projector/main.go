@@ -13,6 +13,7 @@
 //  - Tonnage: total weight lifted by multiplying the weight, reps and sets per exercise per day
 //  - TrainingDuration: training duration per session
 //  - Frequency: frequency of exercise, a tic metric of value 1 per day
+//  - Bodyweight: bodyweight per day
 //
 package main
 
@@ -72,6 +73,7 @@ func main() {
 
 	// Training stats
 	ProjectTrainingDuration(connection, traininglogs)
+	ProjectBodyWeight(connection, traininglogs)
 }
 
 // ------------ Projections -------------
@@ -171,6 +173,8 @@ func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.Tra
 	WritePoints(conn, metricsToBeInserted)
 }
 
+// ProjectTrainingDuration takes a connection to influxdb and a
+// []common.TrainingLog. It saves training duration per day.
 func ProjectTrainingDuration(conn *client.Client, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	for _, trainLog := range logs {
@@ -187,6 +191,8 @@ func ProjectTrainingDuration(conn *client.Client, logs []common.TrainingLog) {
 	WritePoints(conn, metricsToBeInserted)
 }
 
+// ProjectExerciseFrequency takes a valid exercise name, a connection to influxdb and a
+// []common.TrainingLog. It saves the frequency of training the exercise.
 func ProjectExerciseFrequency(conn *client.Client, name string, logs []common.TrainingLog) {
 	var metricsToBeInserted []ExerciseMetric
 	for _, trainLog := range logs {
@@ -202,6 +208,22 @@ func ProjectExerciseFrequency(conn *client.Client, name string, logs []common.Tr
 				metricsToBeInserted = append(metricsToBeInserted, metric)
 			}
 		}
+	}
+	WritePoints(conn, metricsToBeInserted)
+}
+
+func ProjectBodyWeight(conn *client.Client, logs []common.TrainingLog) {
+	var metricsToBeInserted []ExerciseMetric
+	for _, trainLog := range logs {
+		metric := ExerciseMetric{
+			Name:      "bodyweight",
+			Username:  User,
+			Value:     float32(trainLog.Bodyweight.Value),
+			Unit:      trainLog.Bodyweight.Unit,
+			Timestamp: trainLog.Timestamp,
+		}
+		log.Printf("[Bodyweight]Projecting %v on %s", trainLog.Bodyweight.Value, trainLog.Timestamp)
+		metricsToBeInserted = append(metricsToBeInserted, metric)
 	}
 	WritePoints(conn, metricsToBeInserted)
 }
