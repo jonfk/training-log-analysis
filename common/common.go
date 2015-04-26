@@ -15,6 +15,7 @@ import (
 
 // Time_ref is the reference time format used it training logs
 const TimeRef = "2006-01-02 3:04PM"
+const SimpleTimeRef = "2006-01-02" // Used for displaying just the date
 
 // ExerciseY is a 'raw' struct.
 // 'raw' structs are not meant to be used directly but instead to be used
