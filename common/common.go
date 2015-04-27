@@ -100,6 +100,10 @@ type Weight struct {
 	Unit  string // kg or lbs
 }
 
+func (w Weight) String() string {
+	return fmt.Sprintf("%f %s", w.Value, w.Unit)
+}
+
 // Exercise represents an exercise with Name, Weight, Sets, Reps and Exertion.
 // Exertion is optional and Name should be part of ValidExerciseNames.
 type Exercise struct {

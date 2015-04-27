@@ -9,14 +9,24 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 )
 
-var templates = template.Must(template.ParseFiles("./templates/index.html"))
-var traininglogs []common.TrainingLog
-var indexData IndexData
+var (
+	templates       = template.Must(template.ParseFiles("./templates/index.tmpl.html", "./templates/log.tmpl.html"))
+	validPath       = regexp.MustCompile("^([0-9]+-[0-9]+-[0-9]+)$")
+	indexData       IndexPage
+	traininglogs    []common.TrainingLog
+	trainingLogsMap map[string]common.TrainingLog = make(map[string]common.TrainingLog)
+)
 
-type IndexData struct {
+type IndexPage struct {
 	Logs []string
+}
+
+type LogPage struct {
+	Date       string
+	Bodyweight string
 }
 
 func main() {
@@ -34,23 +44,42 @@ func main() {
 
 	for _, tLog := range traininglogs {
 		indexData.Logs = append(indexData.Logs, tLog.Timestamp.Format(common.SimpleTimeRef))
+		// Generate Map
+		trainingLogsMap[tLog.Timestamp.Format(common.SimpleTimeRef)] = tLog
 	}
 
 	router := httprouter.New()
 	router.GET("/", Index)
-	router.GET("/hello/:name", Hello)
+	router.GET("/:date", Hello)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Printf("%v", traininglogs)
-	err := templates.ExecuteTemplate(w, "index.html", indexData)
+	err := templates.ExecuteTemplate(w, "index.tmpl.html", indexData)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+	date := ps.ByName("date")
+	path := validPath.FindStringSubmatch(date)
+
+	tLog, exist := trainingLogsMap[date]
+
+	logPage := LogPage{
+		Date:       date,
+		Bodyweight: tLog.Bodyweight.String(),
+	}
+
+	err := templates.ExecuteTemplate(w, "log.tmpl.html", logPage)
+
+	if err == nil && path != nil && exist {
+		//fmt.Fprintf(w, "hello, %s!\n%v\n", date, data)
+	} else if path == nil || !exist {
+		http.Error(w, "Page not found\n", http.StatusNotFound)
+	} else {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }

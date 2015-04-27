@@ -12,6 +12,10 @@
   </head>
   <body>
     <!--<script src="js/scripts.js"></script>-->
-    {{range .Logs}} {{.}}<br> {{else}} Hello world {{end}}
+    <ul>
+      {{range .Logs}}
+      <li><a href="/{{.}}">{{.}}</a></li>
+      {{else}} <li>No Training Logs</li> {{end}}
+    </ul>
   </body>
 </html>
