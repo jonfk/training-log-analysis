@@ -51,6 +51,7 @@ var validExerciseNames = []string{
 	// Squats
 	"high bar squats",
 	"low bar squats",
+	"belted low bar squats",
 	"front squats",
 	"paused high bar squats",
 	"paused low bar squats",
