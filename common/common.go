@@ -69,6 +69,7 @@ var validExerciseNames = []string{
 	// Pulling
 	"sumo deadlift",
 	"conventional deadlift",
+	"paused conventional deadlift",
 	"stiff leg deadlift",
 	"deficit conventional deadlift",
 	"block pulls",
