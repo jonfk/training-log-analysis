@@ -1,8 +1,9 @@
 language: go
 
 install:
-  - go get gopkg.in/yaml.v2
-  - go get github.com/influxdb/influxdb/client
-  - go get github.com/julienschmidt/httprouter
+  - go get -u github.com/constabulary/gb/...
 
-script: go install ./...
+before_script:
+  - go install github.com/constabulary/gb/...
+
+script: gb build
