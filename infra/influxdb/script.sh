@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e -x
 
-if [ ! -e "influxdb_0.9.0-rc18_amd64.deb" ]; then
-    wget http://get.influxdb.org/influxdb_0.9.0-rc18_amd64.deb
+if [ ! -e "influxdb_latest_amd64.deb" ]; then
+    #wget http://get.influxdb.org/influxdb_0.9.0-rc18_amd64.deb
+    wget https://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
 fi
 
 sudo docker build -t jonfk/influxdb .

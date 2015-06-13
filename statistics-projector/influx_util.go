@@ -14,7 +14,7 @@ type ExerciseMetric struct {
 	Name      string
 	Username  string
 	Unit      string
-	Value     float32
+	Value     float64
 	Set       string
 	Timestamp time.Time
 }
@@ -70,7 +70,7 @@ func WritePoints(con *client.Client, metrics []ExerciseMetric) error {
 
 	for i := range metrics {
 		points[i] = client.Point{
-			Name: metrics[i].Name,
+			Measurement: metrics[i].Name,
 			Tags: map[string]string{
 				"username": metrics[i].Username,
 				"unit":     metrics[i].Unit,
@@ -78,7 +78,7 @@ func WritePoints(con *client.Client, metrics []ExerciseMetric) error {
 			Fields: map[string]interface{}{
 				"value": metrics[i].Value,
 			},
-			Timestamp: metrics[i].Timestamp,
+			Time:      metrics[i].Timestamp,
 			Precision: "s",
 		}
 	}

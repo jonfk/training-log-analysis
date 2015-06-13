@@ -48,7 +48,7 @@ type TrainingLogY struct {
 
 // Weight represents a weight value and it's unit.
 type Weight struct {
-	Value float32
+	Value float64
 	Unit  string // kg or lbs
 }
 
@@ -83,7 +83,7 @@ type TrainingLog struct {
 // mock meet
 type Event struct {
 	Name  string
-	Wilks float32
+	Wilks float64
 	Total Weight
 }
 
@@ -124,7 +124,7 @@ func ParseYaml(inputPath string) (TrainingLog, error) {
 	// Event
 	var pEvent Event
 	if rawLog.Event.Name != "" {
-		pWilks, err := strconv.ParseFloat(rawLog.Event.Wilks, 32)
+		pWilks, err := strconv.ParseFloat(rawLog.Event.Wilks, 64)
 		if err != nil {
 			return TrainingLog{}, fmt.Errorf("error parsing Event Wilks %s in file %s\n\t%v", rawLog.Event.Wilks, inputPath, err)
 		}
@@ -132,7 +132,7 @@ func ParseYaml(inputPath string) (TrainingLog, error) {
 		if err != nil {
 			return TrainingLog{}, fmt.Errorf("error parsing Event Total %s in file %s\n\t%v", rawLog.Event.Total, inputPath, err)
 		}
-		pEvent.Wilks = float32(pWilks)
+		pEvent.Wilks = float64(pWilks)
 		pEvent.Total = pTotal
 	}
 
@@ -204,7 +204,7 @@ func ParseWeight(input string) (Weight, error) {
 	)
 	if strings.Contains(input, " ") {
 		result := strings.Split(input, " ")
-		value, err = strconv.ParseFloat(result[0], 32)
+		value, err = strconv.ParseFloat(result[0], 64)
 		if err != nil {
 			return Weight{}, err
 		}
@@ -218,23 +218,23 @@ func ParseWeight(input string) (Weight, error) {
 		default:
 			return Weight{}, errors.New("Unknown unit: " + result[1])
 		}
-		return Weight{float32(value), unit}, nil
+		return Weight{float64(value), unit}, nil
 	}
 	switch {
 	case strings.Index(input, "lbs") != -1:
 		result := strings.Split(input, "lbs")
-		value, err = strconv.ParseFloat(result[0], 32)
+		value, err = strconv.ParseFloat(result[0], 64)
 		if err != nil {
 			return Weight{}, err
 		}
-		return Weight{float32(value), "lbs"}, nil
+		return Weight{float64(value), "lbs"}, nil
 	case strings.Index(input, "kg") != -1:
 		result := strings.Split(input, "kg")
-		value, err = strconv.ParseFloat(result[0], 32)
+		value, err = strconv.ParseFloat(result[0], 64)
 		if err != nil {
 			return Weight{}, err
 		}
-		return Weight{float32(value), "kg"}, nil
+		return Weight{float64(value), "kg"}, nil
 	default:
 		return Weight{}, fmt.Errorf("unknown unit in : %s", input)
 	}

@@ -107,7 +107,10 @@ func ProjectExerciseIntensity(conn *client.Client, name string, logs []common.Tr
 			}
 		}
 	}
-	WritePoints(conn, metricsToBeInserted)
+	err := WritePoints(conn, metricsToBeInserted)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // ProjectExerciseTonnage takes the name of a valid exercise, a connection to influxdb and
@@ -118,11 +121,11 @@ func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.Trai
 	var unit string
 	for _, trainLog := range logs {
 		var projectDay = false
-		var tonnagePerDay float32
+		var tonnagePerDay float64
 		for _, exercise := range trainLog.Workout {
 			if exercise.Name == name {
 				projectDay = true
-				tonnagePerDay += (exercise.Weight.Value * float32(exercise.Reps) * float32(exercise.Sets))
+				tonnagePerDay += (exercise.Weight.Value * float64(exercise.Reps) * float64(exercise.Sets))
 				unit = exercise.Weight.Unit
 			}
 		}
@@ -139,7 +142,10 @@ func ProjectExerciseTonnage(conn *client.Client, name string, logs []common.Trai
 			metricsToBeInserted = append(metricsToBeInserted, metric)
 		}
 	}
-	WritePoints(conn, metricsToBeInserted)
+	err := WritePoints(conn, metricsToBeInserted)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // ProjectExerciseBarLifts takes a valid exercise name, a connection to influxdb and a
@@ -162,7 +168,7 @@ func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.Tra
 			metric := ExerciseMetric{
 				Name:      strings.Replace(name, " ", "_", -1) + "_barlifts",
 				Username:  User,
-				Value:     float32(barliftsPerDay),
+				Value:     float64(barliftsPerDay),
 				Unit:      unit,
 				Timestamp: trainLog.Timestamp,
 			}
@@ -170,7 +176,10 @@ func ProjectExerciseBarLifts(conn *client.Client, name string, logs []common.Tra
 			metricsToBeInserted = append(metricsToBeInserted, metric)
 		}
 	}
-	WritePoints(conn, metricsToBeInserted)
+	err := WritePoints(conn, metricsToBeInserted)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // ProjectTrainingDuration takes a connection to influxdb and a
@@ -181,14 +190,17 @@ func ProjectTrainingDuration(conn *client.Client, logs []common.TrainingLog) {
 		metric := ExerciseMetric{
 			Name:      "training_duration",
 			Username:  User,
-			Value:     float32(trainLog.Duration.Hours()),
+			Value:     float64(trainLog.Duration.Hours()),
 			Unit:      "hours",
 			Timestamp: trainLog.Timestamp,
 		}
 		log.Printf("[Training Duration]Projecting %s", trainLog.Timestamp)
 		metricsToBeInserted = append(metricsToBeInserted, metric)
 	}
-	WritePoints(conn, metricsToBeInserted)
+	err := WritePoints(conn, metricsToBeInserted)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // ProjectExerciseFrequency takes a valid exercise name, a connection to influxdb and a
@@ -209,7 +221,10 @@ func ProjectExerciseFrequency(conn *client.Client, name string, logs []common.Tr
 			}
 		}
 	}
-	WritePoints(conn, metricsToBeInserted)
+	err := WritePoints(conn, metricsToBeInserted)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func ProjectBodyWeight(conn *client.Client, logs []common.TrainingLog) {
@@ -218,12 +233,15 @@ func ProjectBodyWeight(conn *client.Client, logs []common.TrainingLog) {
 		metric := ExerciseMetric{
 			Name:      "bodyweight",
 			Username:  User,
-			Value:     float32(trainLog.Bodyweight.Value),
+			Value:     float64(trainLog.Bodyweight.Value),
 			Unit:      trainLog.Bodyweight.Unit,
 			Timestamp: trainLog.Timestamp,
 		}
 		log.Printf("[Bodyweight]Projecting %v on %s", trainLog.Bodyweight.Value, trainLog.Timestamp)
 		metricsToBeInserted = append(metricsToBeInserted, metric)
 	}
-	WritePoints(conn, metricsToBeInserted)
+	err := WritePoints(conn, metricsToBeInserted)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
