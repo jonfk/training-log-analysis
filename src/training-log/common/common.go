@@ -53,7 +53,7 @@ type Weight struct {
 }
 
 func (w Weight) String() string {
-	return fmt.Sprintf("%f %s", w.Value, w.Unit)
+	return fmt.Sprintf("%.1f %s", w.Value, w.Unit)
 }
 
 // Exercise represents an exercise with Name, Weight, Sets, Reps and Exertion.

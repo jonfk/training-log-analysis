@@ -9,7 +9,25 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"time"
 	"training-log/common"
+)
+
+type IndexPage struct {
+	Logs []string
+}
+
+type LogPage struct {
+	Date       string
+	Bodyweight string
+	Time       string
+	Length     string
+	Exercises  []common.Exercise
+	Notes      []string
+}
+
+const (
+	outputDir = "target"
 )
 
 var (
@@ -20,19 +38,10 @@ var (
 	trainingLogsMap map[string]common.TrainingLog = make(map[string]common.TrainingLog)
 )
 
-type IndexPage struct {
-	Logs []string
-}
-
-type LogPage struct {
-	Date       string
-	Bodyweight string
-}
-
 func main() {
 	args := os.Args[1:]
 	if len(args) < 1 {
-		fmt.Printf("usage: statistics <directory>\n")
+		fmt.Printf("usage: generate-website <directory>\n")
 		os.Exit(0)
 	}
 
@@ -48,10 +57,47 @@ func main() {
 		trainingLogsMap[tLog.Timestamp.Format(common.SimpleTimeRef)] = tLog
 	}
 
+	// write index file
+	path := outputDir + string(os.PathSeparator) + "index.html"
+	file, err := os.Create(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = templates.ExecuteTemplate(file, "index.tmpl.html", indexData)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// write log files
+	for date, tlog := range trainingLogsMap {
+		logPath := outputDir + string(os.PathSeparator) + date + ".html"
+		file, err := os.Create(logPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		logPage := LogPage{
+			Date:       date,
+			Bodyweight: tlog.Bodyweight.String(),
+			Time:       tlog.Timestamp.Format(time.Kitchen),
+			Length:     tlog.Duration.String(),
+			Exercises:  tlog.Workout,
+			Notes:      tlog.Notes,
+		}
+
+		err = templates.ExecuteTemplate(file, "log.tmpl.html", logPage)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	router := httprouter.New()
 	router.GET("/", Index)
-	router.GET("/:date", Hello)
+	router.GET("/date/:date", Hello)
+	router.ServeFiles("/static/*filepath", http.Dir("static"))
 
+	log.Printf("serving on :8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
@@ -71,15 +117,21 @@ func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	logPage := LogPage{
 		Date:       date,
 		Bodyweight: tLog.Bodyweight.String(),
+		Time:       tLog.Timestamp.Format(time.Kitchen),
+		Length:     tLog.Duration.String(),
+		Exercises:  tLog.Workout,
+		Notes:      tLog.Notes,
 	}
 
-	err := templates.ExecuteTemplate(w, "log.tmpl.html", logPage)
-
-	if err == nil && path != nil && exist {
-		//fmt.Fprintf(w, "hello, %s!\n%v\n", date, data)
+	if path != nil && exist {
+		// correct path and log exists
+		err := templates.ExecuteTemplate(w, "log.tmpl.html", logPage)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	} else if path == nil || !exist {
 		http.Error(w, "Page not found\n", http.StatusNotFound)
 	} else {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Internal Server error", http.StatusInternalServerError)
 	}
 }

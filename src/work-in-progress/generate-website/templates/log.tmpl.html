@@ -8,10 +8,76 @@
     <meta name="description" content="Training Log">
     <meta name="author" content="Jonathan Fokkan">
 
-    <!--<link rel="stylesheet" href="css/styles.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
   </head>
   <body>
     <!--<script src="js/scripts.js"></script>-->
-    Bodyweight: {{ .Bodyweight }}
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4">
+          <table class="table table-striped">
+            <caption>Session Info</caption>
+            <tr>
+              <td>Date:</td> <td>{{ .Date }}</td>
+            </tr>
+            <tr>
+              <td>Bodyweight:</td><td>{{ .Bodyweight }}</td>
+            </tr>
+            <tr>
+              <td>Time:</td><td>{{ .Time }}</td>
+            </tr>
+            <tr><td>Duration:</td><td>{{ .Length }}</td></tr>
+          </table>
+        </div>
+
+        <div class="col-xs-12 col-md-8">
+          <table class="table table-bordered table-hover">
+            <tr>
+              <th>Exercise</th>
+              <th>SetxRep</th>
+              <th>Weight</th>
+              <th>RPE</th>
+            </tr>
+            {{range .Exercises}}
+            <tr>
+              <td>{{ .Name }}</td>
+              <td>{{ .Sets }}x{{ .Reps }}</td>
+              <td>{{ .Weight.String }}</td>
+              <td>{{ .Exertion }}</td>
+            </tr>
+            {{end}}
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">Notes</div>
+            <div class="panel-body">
+              {{range .Notes}}
+              <p>
+                {{ . }}
+              </p>
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   </body>
 </html>
