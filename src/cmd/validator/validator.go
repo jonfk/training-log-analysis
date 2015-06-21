@@ -53,7 +53,11 @@ func main() {
 				}
 			}
 		} else {
-			process(args[i])
+			err := process(args[i])
+			if err != nil {
+				fmt.Printf("%s", err)
+				os.Exit(1)
+			}
 		}
 	}
 
@@ -75,9 +79,10 @@ func isFlag(arg string) bool {
 	return false
 }
 
-func process(arg string) {
+func process(arg string) error {
 
 	// fmt.Println("Processing " + arg)
+	var returnErr error
 
 	isDir, err := IsDirectory(arg)
 
@@ -91,14 +96,21 @@ func process(arg string) {
 			log.Fatalf("%s\n", err)
 		}
 		for i := range toProcess {
-			process(filepath.Join(arg, toProcess[i].Name()))
+			newErr := process(filepath.Join(arg, toProcess[i].Name()))
+			if newErr != nil {
+				if returnErr != nil {
+					returnErr = fmt.Errorf("%s%s", returnErr, newErr)
+				} else {
+					returnErr = newErr
+				}
+			}
 		}
 
 	} else {
 		data, err := ioutil.ReadFile(arg)
 		if err != nil {
 			log.Fatalf("Error reading file %s\n", arg)
-			return
+			return err
 		}
 
 		if Flexible {
@@ -110,7 +122,7 @@ func process(arg string) {
 			if Verbose {
 				fmt.Printf("--- Flexible:\n%#v\n\n", m)
 			}
-			return
+			return err
 		}
 
 		rawT := common.TrainingLogY{}
@@ -122,7 +134,7 @@ func process(arg string) {
 
 		t, err := common.ParseYaml(arg)
 		if err != nil {
-			fmt.Printf("Error parsing %s with\n\t%s\n", arg, err)
+			returnErr = fmt.Errorf("Error parsing %s with\n\t%s\n", arg, err)
 		}
 
 		if Verbose {
@@ -138,7 +150,7 @@ func process(arg string) {
 			fmt.Printf("%s\n", string(d))
 		}
 	}
-
+	return returnErr
 }
 
 func printUsage() {
