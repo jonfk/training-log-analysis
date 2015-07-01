@@ -13,3 +13,13 @@ This project is built using the [gb tool](http://getgb.io/).
 # to build all commands
 $ gb build
 ```
+
+##Modules
+- cmd/
+  - data-exporter
+  - statistics-projector
+  - validator
+- training-log/
+  - common
+  - projections
+- work-in-progress/
