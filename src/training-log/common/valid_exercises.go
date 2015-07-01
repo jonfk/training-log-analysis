@@ -39,6 +39,29 @@ var validExerciseNames = []string{
 	"alternating db curls",
 }
 
+// IsValidExercise verifies whether it's argument is part of the
+// list of valid exercises.
+func IsValidExercise(name string) bool {
+	for i := range validExerciseNames {
+		if name == validExerciseNames[i] {
+			return true
+		}
+	}
+	return false
+}
+
+/*
+ * Exercise Variations and filtering functions
+ */
+
+type ExerciseVariation int
+
+const (
+	SquatVariation = iota
+	BenchVariation
+	DeadliftVariation
+)
+
 // Important Exercise variations for exercises we care about
 // such as squats, bench and deadlift
 var SquatVariations = []string{
@@ -56,13 +79,43 @@ var DeadliftVariations = []string{
 	"conventional deadlift",
 }
 
-// IsValidExercise verifies whether it's argument is part of the
-// list of valid exercises.
-func IsValidExercise(name string) bool {
-	for i := range validExerciseNames {
-		if name == validExerciseNames[i] {
+func IsExerciseVariation(variation ExerciseVariation, exerciseName string) bool {
+	var variations []string
+	switch variation {
+	case SquatVariation:
+		variations = SquatVariations
+	case BenchVariation:
+		variations = BenchVariations
+	case DeadliftVariation:
+		variations = DeadliftVariations
+	}
+	for i := range variations {
+		if variations[i] == exerciseName {
 			return true
 		}
 	}
 	return false
+}
+
+func Filter(name string, log TrainingLog) []Exercise {
+	if name == "" {
+		return log.Workout
+	}
+	var result []Exercise
+	for i := range log.Workout {
+		if log.Workout[i].Name == name {
+			result = append(result, log.Workout[i])
+		}
+	}
+	return result
+}
+
+func FilterVariation(variation ExerciseVariation, t TrainingLog) []Exercise {
+	var result []Exercise
+	for i := range t.Workout {
+		if IsExerciseVariation(variation, t.Workout[i].Name) {
+			result = append(result, t.Workout[i])
+		}
+	}
+	return result
 }
