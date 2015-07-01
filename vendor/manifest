@@ -76,6 +76,12 @@
 			"repository": "https://github.com/julienschmidt/httprouter",
 			"revision": "8c199fb6259ffc1af525cc3ad52ee60ba8359669",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/codegangsta/cli",
+			"repository": "https://github.com/codegangsta/cli",
+			"revision": "f9982619ccace7df963bb7f6d1de3a6f014ff709",
+			"branch": "master"
 		}
 	]
 }
