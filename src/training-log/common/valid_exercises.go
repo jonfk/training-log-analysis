@@ -97,14 +97,18 @@ func IsExerciseVariation(variation ExerciseVariation, exerciseName string) bool 
 	return false
 }
 
-func Filter(name string, log TrainingLog) []Exercise {
-	if name == "" {
+func Filter(log TrainingLog, filters ...string) []Exercise {
+	if len(filters) == 0 {
 		return log.Workout
 	}
 	var result []Exercise
 	for i := range log.Workout {
-		if log.Workout[i].Name == name {
-			result = append(result, log.Workout[i])
+		for j := range filters {
+
+			if log.Workout[i].Name == filters[j] {
+				result = append(result, log.Workout[i])
+				break
+			}
 		}
 	}
 	return result
