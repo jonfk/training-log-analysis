@@ -20,27 +20,31 @@ func ProjectBodyWeight(logs []common.TrainingLog) []DataPoint {
 
 // ProjectExerciseIntensity takes the name of a valid exercise and a list of []common.TrainingLog.
 // It returns a DataPoint with the intensity of the highest working set for that exercise per day.
-func ProjectExerciseIntensity(exerciseName string, logs []common.TrainingLog) []DataPoint {
+func ProjectExerciseIntensity(logs []common.TrainingLog, exercises ...string) []DataPoint {
 	// TODO: can we used a map[time.Time]DataPoint
 	// and sort by time before returning
 	var dataPoints []DataPoint
 	for _, trainLog := range logs {
 	Loop1:
 		for _, exercise := range trainLog.Workout {
-			if exercise.Name == exerciseName {
-				point := DataPoint{
-					Timestamp: trainLog.Timestamp,
-					Value:     exercise.Weight.Value,
-					Unit:      exercise.Weight.Unit,
-				}
-				// If 2 values with same timestamp occurs, we take the highest value
-				for _, pts := range dataPoints {
-					if pts.Timestamp.Equal(point.Timestamp) && pts.Value > point.Value {
-						continue Loop1
+			// If exercise.Name is in exercises
+			for _, exerciseName := range exercises {
+				if exercise.Name == exerciseName {
+					point := DataPoint{
+						Timestamp: trainLog.Timestamp,
+						Value:     exercise.Weight.Value,
+						Unit:      exercise.Weight.Unit,
 					}
+					// If 2 values with same timestamp occurs, we take the highest value
+					for _, pts := range dataPoints {
+						if pts.Timestamp.Equal(point.Timestamp) && pts.Value > point.Value {
+							continue Loop1
+						}
+					}
+					//log.Printf("[Intensity]Projecting %v for %s", exercise, trainLog.Timestamp)
+					dataPoints = append(dataPoints, point)
+					break
 				}
-				//log.Printf("[Intensity]Projecting %v for %s", exercise, trainLog.Timestamp)
-				dataPoints = append(dataPoints, point)
 			}
 		}
 	}
@@ -50,17 +54,21 @@ func ProjectExerciseIntensity(exerciseName string, logs []common.TrainingLog) []
 // ProjectExerciseTonnage takes the name of a valid exercise and []common.TrainingLog.
 // It returns a []DataPoint with the total weight of the exercise per day.
 // It assumes the exercise has the same unit on the same day.
-func ProjectExerciseTonnage(name string, logs []common.TrainingLog) []DataPoint {
+func ProjectExerciseTonnage(logs []common.TrainingLog, names ...string) []DataPoint {
 	var dataPoints []DataPoint
 	var unit string
 	for _, trainLog := range logs {
 		var projectDay = false
 		var tonnagePerDay float64
 		for _, exercise := range trainLog.Workout {
-			if exercise.Name == name {
-				projectDay = true
-				tonnagePerDay += (exercise.Weight.Value * float64(exercise.Reps) * float64(exercise.Sets))
-				unit = exercise.Weight.Unit
+			// If exercise.Name is in names
+			for _, name := range names {
+				if exercise.Name == name {
+					projectDay = true
+					tonnagePerDay += (exercise.Weight.Value * float64(exercise.Reps) * float64(exercise.Sets))
+					unit = exercise.Weight.Unit
+					break
+				}
 			}
 		}
 		if projectDay {
