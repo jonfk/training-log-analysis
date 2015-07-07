@@ -20,6 +20,7 @@ var validExerciseNames = []string{
 	"behind the neck press",
 	"db incline press",
 	"db flyes",
+	"db press",
 	// Pulling
 	"sumo deadlift",
 	"conventional deadlift",
@@ -31,6 +32,7 @@ var validExerciseNames = []string{
 	"bent over rows",
 	"pendlay rows",
 	"chest supported rows",
+	"db rows",
 	// Back
 	"pull ups",
 	"chin ups",
