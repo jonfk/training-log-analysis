@@ -33,6 +33,7 @@ var validExerciseNames = []string{
 	"pendlay rows",
 	"chest supported rows",
 	"db rows",
+	"seated rows",
 	// Back
 	"pull ups",
 	"chin ups",
