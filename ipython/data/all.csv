@@ -1,0 +1,347 @@
+date,exercise,sets,reps,weight,unit
+2015-02-28,low bar squats,3,3,225.00,lbs
+2015-02-28,bench press,5,5,145.00,lbs
+2015-02-28,conventional deadlift,3,3,275.00,lbs
+2015-02-28,conventional deadlift,1,10,225.00,lbs
+2015-03-02,overhead press,5,5,85.00,lbs
+2015-03-02,behind the neck press,3,6,65.00,lbs
+2015-03-02,db incline press,3,12,40.00,lbs
+2015-03-02,pull ups,5,5,68.00,kg
+2015-03-02,alternating db curls,5,12,25.00,lbs
+2015-03-03,high bar squats,5,5,215.00,lbs
+2015-03-03,bench press,5,5,150.00,lbs
+2015-03-03,stiff leg deadlift,3,8,185.00,lbs
+2015-03-03,pull ups,6,5,67.30,kg
+2015-03-05,overhead press,5,5,90.00,lbs
+2015-03-05,front squats,5,5,155.00,lbs
+2015-03-05,close grip bench press,5,5,145.00,lbs
+2015-03-05,bent over rows,5,5,135.00,lbs
+2015-03-07,low bar squats,3,3,240.00,lbs
+2015-03-07,bench press,6,4,160.00,lbs
+2015-03-07,sumo deadlift,1,5,275.00,lbs
+2015-03-07,sumo deadlift,1,5,295.00,lbs
+2015-03-07,sumo deadlift,1,5,315.00,lbs
+2015-03-09,overhead press,5,5,95.00,lbs
+2015-03-09,behind the neck press,3,8,65.00,lbs
+2015-03-09,db incline press,3,12,35.00,lbs
+2015-03-09,pull ups,5,5,68.60,lbs
+2015-03-10,high bar squats,4,5,215.00,lbs
+2015-03-10,bench press,6,5,155.00,lbs
+2015-03-10,stiff leg deadlift,3,8,185.00,lbs
+2015-03-10,pull ups,3,5,68.00,lbs
+2015-03-12,overhead press,1,5,95.00,lbs
+2015-03-12,overhead press,5,5,90.00,lbs
+2015-03-12,front squats,5,5,160.00,lbs
+2015-03-12,close grip bench press,6,5,145.00,lbs
+2015-03-12,deficit conventional deadlift,3,5,225.00,lbs
+2015-03-12,pull ups,5,5,67.60,lbs
+2015-03-14,low bar squats,5,3,245.00,lbs
+2015-03-14,low bar squats,3,8,155.00,lbs
+2015-03-14,bench press,5,4,165.00,lbs
+2015-03-14,bench press,3,8,135.00,lbs
+2015-03-14,sumo deadlift,1,5,295.00,lbs
+2015-03-14,conventional deadlift,4,3,315.00,lbs
+2015-03-14,pull ups,5,5,68.00,lbs
+2015-03-16,overhead press,5,5,95.00,lbs
+2015-03-16,behind the neck press,3,8,65.00,lbs
+2015-03-16,db incline press,3,12,40.00,lbs
+2015-03-16,db flyes,3,10,30.00,lbs
+2015-03-16,bent over rows,5,5,135.00,lbs
+2015-03-17,high bar squats,1,5,220.00,lbs
+2015-03-17,high bar squats,3,5,205.00,lbs
+2015-03-17,bench press,5,5,155.00,lbs
+2015-03-17,stiff leg deadlift,5,8,185.00,lbs
+2015-03-17,pull ups,5,5,67.60,kg
+2015-03-19,overhead press,7,5,90.00,lbs
+2015-03-19,front squats,6,5,145.00,lbs
+2015-03-19,close grip bench press,5,5,145.00,lbs
+2015-03-19,bent over rows,5,5,135.00,lbs
+2015-03-21,low bar squats,4,3,250.00,lbs
+2015-03-21,low bar squats,4,8,185.00,lbs
+2015-03-21,bench press,5,4,165.00,lbs
+2015-03-21,bench press,3,7,135.00,lbs
+2015-03-21,block pulls,3,5,275.00,lbs
+2015-03-21,pull ups,5,5,67.50,kg
+2015-03-24,high bar squats,8,5,205.00,lbs
+2015-03-24,bench press,3,5,160.00,lbs
+2015-03-24,bench press,5,4,155.00,lbs
+2015-03-24,stiff leg deadlift,3,5,205.00,lbs
+2015-03-24,pull ups,6,5,67.50,kg
+2015-03-26,db lunges,3,10,35.00,lbs
+2015-03-26,overhead press,5,5,90.00,lbs
+2015-03-26,behind the neck press,4,8,65.00,lbs
+2015-03-26,close grip bench press,5,5,135.00,lbs
+2015-03-26,pull ups,3,5,67.80,kg
+2015-03-28,low bar squats,5,3,255.00,lbs
+2015-03-28,low bar squats,3,8,185.00,lbs
+2015-03-28,bench press,8,5,155.00,lbs
+2015-03-28,conventional deadlift,2,5,315.00,lbs
+2015-03-28,block pulls,5,3,275.00,lbs
+2015-03-28,db incline press,3,8,40.00,lbs
+2015-03-28,lat pulldowns,3,12,120.00,lbs
+2015-03-28,db flyes,5,12,30.00,lbs
+2015-03-30,overhead press,7,5,85.00,lbs
+2015-03-30,behind the neck press,4,6,65.00,lbs
+2015-03-31,high bar squats,3,5,215.00,lbs
+2015-03-31,high bar squats,3,8,185.00,lbs
+2015-03-31,bench press,5,5,155.00,lbs
+2015-03-31,stiff leg deadlift,3,8,185.00,lbs
+2015-03-31,pull ups,3,5,67.60,kg
+2015-04-02,overhead press,8,5,90.00,lbs
+2015-04-02,front squats,5,5,155.00,lbs
+2015-04-02,close grip bench press,5,5,145.00,lbs
+2015-04-02,bent over rows,5,5,135.00,lbs
+2015-04-02,pull ups,1,5,68.00,kg
+2015-04-04,low bar squats,6,3,260.00,lbs
+2015-04-04,low bar squats,3,8,185.00,lbs
+2015-04-04,bench press,7,5,155.00,lbs
+2015-04-04,conventional deadlift,1,3,330.00,lbs
+2015-04-04,db incline press,5,12,40.00,lbs
+2015-04-04,db flyes,5,8,35.00,lbs
+2015-04-04,lat pulldowns,3,10,115.00,lbs
+2015-04-04,pull ups,5,5,67.40,kg
+2015-04-06,overhead press,2,5,95.00,lbs
+2015-04-06,overhead press,5,5,90.00,lbs
+2015-04-06,behind the neck press,5,8,65.00,lbs
+2015-04-06,db incline press,4,12,40.00,lbs
+2015-04-06,db flyes,5,12,30.00,lbs
+2015-04-06,bent over rows,5,5,135.00,lbs
+2015-04-06,lat pulldowns,3,10,115.00,lbs
+2015-04-07,high bar squats,5,5,215.00,lbs
+2015-04-07,bench press,6,5,155.00,lbs
+2015-04-07,stiff leg deadlift,5,8,185.00,lbs
+2015-04-09,overhead press,7,5,90.00,lbs
+2015-04-09,front squats,5,5,155.00,lbs
+2015-04-09,close grip bench press,3,5,155.00,lbs
+2015-04-09,lat pulldowns,3,10,120.00,lbs
+2015-04-11,low bar squats,5,5,245.00,lbs
+2015-04-11,low bar squats,3,8,185.00,lbs
+2015-04-11,bench press,7,5,158.00,lbs
+2015-04-11,conventional deadlift,2,5,315.00,lbs
+2015-04-11,db incline press,4,12,40.00,lbs
+2015-04-11,db incline press,3,12,45.00,lbs
+2015-04-13,overhead press,6,5,90.00,lbs
+2015-04-13,behind the neck press,3,8,65.00,lbs
+2015-04-13,db incline press,1,5,50.00,lbs
+2015-04-13,db incline press,3,10,45.00,lbs
+2015-04-13,bent over rows,3,5,135.00,lbs
+2015-04-13,lat pulldowns,3,8,135.00,lbs
+2015-04-14,high bar squats,5,5,220.00,lbs
+2015-04-14,bench press,6,5,155.00,lbs
+2015-04-14,stiff leg deadlift,3,8,205.00,lbs
+2015-04-14,lat pulldowns,3,8,135.00,lbs
+2015-04-16,overhead press,7,5,90.00,lbs
+2015-04-16,front squats,4,5,160.00,lbs
+2015-04-16,close grip bench press,5,5,145.00,lbs
+2015-04-16,pull ups,3,5,68.10,kg
+2015-04-18,low bar squats,5,5,250.00,lbs
+2015-04-18,bench press,5,5,165.00,lbs
+2015-04-18,conventional deadlift,5,1,275.00,lbs
+2015-04-18,conventional deadlift,5,1,295.00,lbs
+2015-04-18,incline bench press,5,5,95.00,lbs
+2015-04-20,overhead press,5,5,85.00,lbs
+2015-04-20,pull ups,2,5,68.70,kg
+2015-04-21,high bar squats,3,5,225.00,lbs
+2015-04-21,high bar squats,2,5,205.00,lbs
+2015-04-21,bench press,5,5,155.00,lbs
+2015-04-21,stiff leg deadlift,2,8,195.00,lbs
+2015-04-22,overhead press,5,8,85.00,lbs
+2015-04-23,low bar squats,1,3,245.00,lbs
+2015-04-23,low bar squats,5,5,225.00,lbs
+2015-04-23,bench press,6,5,160.00,lbs
+2015-04-23,deficit conventional deadlift,5,1,275.00,lbs
+2015-04-23,pull ups,5,5,68.40,kg
+2015-04-24,overhead press,5,5,95.00,lbs
+2015-04-28,belted low bar squats,5,5,245.00,lbs
+2015-04-28,bench press,5,5,160.00,lbs
+2015-04-28,bent over rows,5,5,160.00,lbs
+2015-04-30,overhead press,6,5,95.00,lbs
+2015-04-30,behind the neck press,3,8,65.00,lbs
+2015-04-30,paused front squats,5,5,145.00,lbs
+2015-04-30,close grip bench press,5,5,145.00,lbs
+2015-04-30,paused conventional deadlift,3,3,225.00,lbs
+2015-04-30,pull ups,5,5,67.60,kg
+2015-05-02,belted low bar squats,3,5,265.00,lbs
+2015-05-02,low bar squats,4,10,185.00,lbs
+2015-05-02,bench press,6,5,165.00,lbs
+2015-05-02,sumo deadlift,3,5,275.00,lbs
+2015-05-02,sumo deadlift,3,7,225.00,lbs
+2015-05-02,db incline press,3,10,45.00,lbs
+2015-05-04,overhead press,7,5,95.00,lbs
+2015-05-04,behind the neck press,5,6,70.00,lbs
+2015-05-04,db incline press,4,10,45.00,lbs
+2015-05-05,high bar squats,3,8,205.00,lbs
+2015-05-05,belted low bar squats,3,5,225.00,lbs
+2015-05-05,bench press,5,5,160.00,lbs
+2015-05-05,bent over rows,7,5,135.00,lbs
+2015-05-07,overhead press,8,5,95.00,lbs
+2015-05-07,front squats,3,5,165.00,lbs
+2015-05-07,close grip bench press,5,8,130.00,lbs
+2015-05-07,bent over rows,5,7,135.00,lbs
+2015-05-09,sumo deadlift,3,5,245.00,lbs
+2015-05-09,belted low bar squats,5,5,265.00,lbs
+2015-05-09,bench press,8,5,155.00,lbs
+2015-05-09,sumo deadlift,2,3,275.00,lbs
+2015-05-09,bent over rows,6,5,135.00,lbs
+2015-05-09,db incline press,5,10,45.00,lbs
+2015-05-11,overhead press,8,5,95.00,lbs
+2015-05-11,behind the neck press,3,8,70.00,lbs
+2015-05-11,pull ups,4,5,68.90,kg
+2015-05-12,low bar squats,5,5,235.00,lbs
+2015-05-12,tng bench press,5,5,160.00,lbs
+2015-05-12,bent over rows,5,5,135.00,lbs
+2015-05-14,overhead press,8,3,100.00,lbs
+2015-05-14,front squats,5,8,140.00,lbs
+2015-05-14,close grip bench press,5,8,120.00,lbs
+2015-05-14,bent over rows,5,5,140.00,lbs
+2015-05-14,pull ups,5,5,68.00,kg
+2015-05-16,sumo deadlift,3,5,245.00,lbs
+2015-05-16,belted low bar squats,5,3,270.00,lbs
+2015-05-16,low bar squats,5,8,185.00,lbs
+2015-05-16,bench press,5,5,155.00,lbs
+2015-05-16,sumo deadlift,3,5,225.00,lbs
+2015-05-16,sumo deadlift,3,3,275.00,lbs
+2015-05-16,bent over rows,5,5,135.00,lbs
+2015-05-16,db incline press,5,10,45.00,lbs
+2015-05-19,low bar squats,5,5,235.00,lbs
+2015-05-19,bench press,5,5,155.00,lbs
+2015-05-19,bent over rows,5,5,135.00,lbs
+2015-05-19,pull ups,5,5,68.10,kg
+2015-05-23,low bar squats,5,1,275.00,lbs
+2015-05-23,low bar squats,3,12,185.00,lbs
+2015-05-23,bench press,5,5,165.00,lbs
+2015-05-23,sumo deadlift,4,5,225.00,lbs
+2015-05-23,sumo deadlift,1,3,275.00,lbs
+2015-05-25,overhead press,5,5,100.00,lbs
+2015-05-25,behind the neck press,3,7,70.00,lbs
+2015-05-25,db incline press,5,5,50.00,lbs
+2015-05-25,bent over rows,7,5,135.00,lbs
+2015-05-26,low bar squats,1,3,245.00,lbs
+2015-05-26,low bar squats,1,3,235.00,lbs
+2015-05-26,low bar squats,3,5,225.00,lbs
+2015-05-26,bench press,5,5,160.00,lbs
+2015-05-26,bent over rows,7,5,140.00,lbs
+2015-05-28,overhead press,5,5,100.00,lbs
+2015-05-28,behind the neck press,5,8,65.00,lbs
+2015-05-28,bent over rows,7,6,140.00,lbs
+2015-05-30,belted low bar squats,2,3,270.00,lbs
+2015-05-30,belted low bar squats,4,5,255.00,lbs
+2015-05-30,low bar squats,3,8,195.00,lbs
+2015-05-30,bench press,6,5,165.00,lbs
+2015-05-30,sumo deadlift,3,5,245.00,lbs
+2015-05-30,behind the neck press,3,8,55.00,lbs
+2015-06-01,overhead press,3,5,100.00,lbs
+2015-06-01,overhead press,2,4,100.00,lbs
+2015-06-01,behind the neck press,5,6,70.00,lbs
+2015-06-01,bent over rows,10,5,135.00,lbs
+2015-06-02,low bar squats,1,3,245.00,lbs
+2015-06-02,low bar squats,5,5,225.00,lbs
+2015-06-02,bench press,1,5,165.00,lbs
+2015-06-02,bench press,5,5,155.00,lbs
+2015-06-02,bent over rows,5,5,135.00,lbs
+2015-06-05,overhead press,5,5,100.00,lbs
+2015-06-05,behind the neck press,3,8,70.00,lbs
+2015-06-05,front squats,3,3,155.00,lbs
+2015-06-05,bent over rows,5,8,135.00,lbs
+2015-06-06,belted low bar squats,6,3,265.00,lbs
+2015-06-06,low bar squats,4,8,195.00,lbs
+2015-06-06,bench press,1,5,170.00,lbs
+2015-06-06,bench press,2,4,170.00,lbs
+2015-06-06,bench press,4,6,170.00,lbs
+2015-06-06,sumo deadlift,3,5,275.00,lbs
+2015-06-08,overhead press,1,5,105.00,lbs
+2015-06-08,overhead press,5,5,100.00,lbs
+2015-06-08,behind the neck press,3,8,65.00,lbs
+2015-06-09,low bar squats,4,3,245.00,lbs
+2015-06-09,low bar squats,3,5,225.00,lbs
+2015-06-09,bench press,4,5,165.00,lbs
+2015-06-09,bent over rows,3,8,135.00,lbs
+2015-06-11,overhead press,1,5,105.00,lbs
+2015-06-11,overhead press,5,5,100.00,lbs
+2015-06-11,behind the neck press,3,8,70.00,lbs
+2015-06-11,front squats,5,5,145.00,lbs
+2015-06-11,pull ups,3,5,67.20,kg
+2015-06-11,bent over rows,5,5,135.00,lbs
+2015-06-13,belted low bar squats,5,5,265.00,lbs
+2015-06-13,bench press,5,5,165.00,lbs
+2015-06-13,sumo deadlift,5,5,275.00,lbs
+2015-06-13,lat pulldowns,4,8,135.00,lbs
+2015-06-15,overhead press,1,5,105.00,lbs
+2015-06-15,overhead press,3,5,100.00,lbs
+2015-06-15,overhead press,3,4,100.00,lbs
+2015-06-15,behind the neck press,3,8,70.00,lbs
+2015-06-15,lat pulldowns,4,8,130.00,lbs
+2015-06-16,low bar squats,5,5,245.00,lbs
+2015-06-16,bench press,5,5,155.00,lbs
+2015-06-16,bent over rows,4,8,135.00,lbs
+2015-06-16,incline bench press,5,8,95.00,lbs
+2015-06-18,overhead press,1,5,105.00,lbs
+2015-06-18,overhead press,5,5,100.00,lbs
+2015-06-18,behind the neck press,4,8,70.00,lbs
+2015-06-18,front squats,5,5,155.00,lbs
+2015-06-18,bent over rows,4,8,135.00,lbs
+2015-06-20,belted low bar squats,7,3,270.00,lbs
+2015-06-20,low bar squats,3,8,205.00,lbs
+2015-06-20,bench press,5,5,165.00,lbs
+2015-06-20,sumo deadlift,4,5,295.00,lbs
+2015-06-20,db incline press,5,10,45.00,lbs
+2015-06-20,lat pulldowns,4,8,135.00,lbs
+2015-06-22,overhead press,1,5,105.00,lbs
+2015-06-22,overhead press,5,5,100.00,lbs
+2015-06-22,behind the neck press,4,8,70.00,lbs
+2015-06-23,low bar squats,3,5,250.00,lbs
+2015-06-23,bench press,5,5,160.00,lbs
+2015-06-23,bent over rows,8,5,140.00,lbs
+2015-06-23,lat pulldowns,4,8,135.00,lbs
+2015-06-25,overhead press,3,5,105.00,lbs
+2015-06-25,overhead press,3,5,100.00,lbs
+2015-06-25,behind the neck press,4,8,70.00,lbs
+2015-06-25,front squats,5,5,160.00,lbs
+2015-06-25,bent over rows,4,8,135.00,lbs
+2015-06-25,lat pulldowns,3,5,130.00,lbs
+2015-06-27,belted low bar squats,7,3,275.00,lbs
+2015-06-27,low bar squats,3,8,205.00,lbs
+2015-06-27,bench press,5,5,160.00,lbs
+2015-06-27,sumo deadlift,1,5,295.00,lbs
+2015-06-27,sumo deadlift,2,5,275.00,lbs
+2015-06-27,sumo deadlift,2,5,225.00,lbs
+2015-06-27,db incline press,5,10,45.00,lbs
+2015-06-27,lat pulldowns,4,8,135.00,lbs
+2015-06-27,db flyes,3,10,30.00,lbs
+2015-06-29,overhead press,1,5,105.00,lbs
+2015-06-29,overhead press,5,5,100.00,lbs
+2015-06-29,behind the neck press,3,8,70.00,lbs
+2015-06-29,bent over rows,4,8,135.00,lbs
+2015-06-29,lat pulldowns,3,8,130.00,lbs
+2015-06-30,low bar squats,3,3,245.00,lbs
+2015-06-30,bench press,3,10,135.00,lbs
+2015-07-02,incline bench press,3,8,115.00,lbs
+2015-07-02,overhead press,5,5,85.00,lbs
+2015-07-02,front squats,5,5,155.00,lbs
+2015-07-02,bent over rows,4,8,135.00,lbs
+2015-07-02,lat pulldowns,3,8,130.00,lbs
+2015-07-03,lat pulldowns,3,8,115.00,lbs
+2015-07-03,pull ups,3,5,67.20,kg
+2015-07-03,incline bench press,8,5,115.00,lbs
+2015-07-04,sumo deadlift,12,3,275.00,lbs
+2015-07-04,bench press,7,6,155.00,lbs
+2015-07-04,belted low bar squats,3,3,280.00,lbs
+2015-07-04,db incline press,5,9,45.00,lbs
+2015-07-06,pull ups,5,5,68.00,kg
+2015-07-06,incline bench press,8,5,115.00,lbs
+2015-07-06,db press,5,8,40.00,lbs
+2015-07-06,bench press,5,8,135.00,lbs
+2015-07-06,close grip bench press,5,10,95.00,lbs
+2015-07-06,incline bench press,5,8,95.00,lbs
+2015-07-06,db rows,5,10,45.00,lbs
+2015-07-08,incline bench press,5,8,115.00,lbs
+2015-07-08,lat pulldowns,5,10,130.00,lbs
+2015-07-09,low bar squats,5,5,225.00,lbs
+2015-07-09,overhead press,5,5,95.00,lbs
+2015-07-09,seated rows,5,10,100.00,lbs
+2015-07-11,sumo deadlift,3,5,275.00,lbs
+2015-07-11,bench press,5,5,155.00,lbs
+2015-07-11,close grip bench press,5,8,95.00,lbs
+2015-07-11,seated rows,5,10,100.00,lbs
+2015-07-11,incline bench press,5,8,115.00,lbs
+2015-07-11,lat pulldowns,5,8,130.00,lbs
