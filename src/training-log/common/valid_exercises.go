@@ -10,6 +10,7 @@ var validExerciseNames = []string{
 	"paused high bar squats",
 	"paused low bar squats",
 	"paused front squats",
+	// other lower body accessories
 	"db lunges",
 	// Pressing
 	"close grip bench press",
@@ -53,10 +54,7 @@ func IsValidExercise(name string) bool {
 	return false
 }
 
-/*
- * Exercise Variations and filtering functions
- */
-
+// Exercise Variations and filtering functions
 type ExerciseVariation int
 
 const (
@@ -71,6 +69,10 @@ var SquatVariations = []string{
 	"high bar squats",
 	"low bar squats",
 	"belted low bar squats",
+	"front squats",
+	"paused high bar squats",
+	"paused low bar squats",
+	"paused front squats",
 }
 var BenchVariations = []string{
 	"close grip bench press",
