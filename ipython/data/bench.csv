@@ -1,58 +1,63 @@
 date,exercise,sets,reps,weight,unit
-2015-02-28,bench press,5,5,145.00,lbs
-2015-03-03,bench press,5,5,150.00,lbs
-2015-03-05,close grip bench press,5,5,145.00,lbs
-2015-03-07,bench press,6,4,160.00,lbs
-2015-03-10,bench press,6,5,155.00,lbs
-2015-03-12,close grip bench press,6,5,145.00,lbs
-2015-03-14,bench press,5,4,165.00,lbs
-2015-03-14,bench press,3,8,135.00,lbs
-2015-03-17,bench press,5,5,155.00,lbs
-2015-03-19,close grip bench press,5,5,145.00,lbs
-2015-03-21,bench press,5,4,165.00,lbs
-2015-03-21,bench press,3,7,135.00,lbs
-2015-03-24,bench press,3,5,160.00,lbs
-2015-03-24,bench press,5,4,155.00,lbs
-2015-03-26,close grip bench press,5,5,135.00,lbs
-2015-03-28,bench press,8,5,155.00,lbs
-2015-03-31,bench press,5,5,155.00,lbs
-2015-04-02,close grip bench press,5,5,145.00,lbs
-2015-04-04,bench press,7,5,155.00,lbs
-2015-04-07,bench press,6,5,155.00,lbs
-2015-04-09,close grip bench press,3,5,155.00,lbs
-2015-04-11,bench press,7,5,158.00,lbs
-2015-04-14,bench press,6,5,155.00,lbs
-2015-04-16,close grip bench press,5,5,145.00,lbs
-2015-04-18,bench press,5,5,165.00,lbs
-2015-04-21,bench press,5,5,155.00,lbs
-2015-04-23,bench press,6,5,160.00,lbs
-2015-04-28,bench press,5,5,160.00,lbs
-2015-04-30,close grip bench press,5,5,145.00,lbs
-2015-05-02,bench press,6,5,165.00,lbs
-2015-05-05,bench press,5,5,160.00,lbs
-2015-05-07,close grip bench press,5,8,130.00,lbs
-2015-05-09,bench press,8,5,155.00,lbs
-2015-05-12,tng bench press,5,5,160.00,lbs
-2015-05-14,close grip bench press,5,8,120.00,lbs
-2015-05-16,bench press,5,5,155.00,lbs
-2015-05-19,bench press,5,5,155.00,lbs
-2015-05-23,bench press,5,5,165.00,lbs
-2015-05-26,bench press,5,5,160.00,lbs
-2015-05-30,bench press,6,5,165.00,lbs
-2015-06-02,bench press,1,5,165.00,lbs
-2015-06-02,bench press,5,5,155.00,lbs
-2015-06-06,bench press,1,5,170.00,lbs
-2015-06-06,bench press,2,4,170.00,lbs
-2015-06-06,bench press,4,6,170.00,lbs
-2015-06-09,bench press,4,5,165.00,lbs
-2015-06-13,bench press,5,5,165.00,lbs
-2015-06-16,bench press,5,5,155.00,lbs
-2015-06-20,bench press,5,5,165.00,lbs
-2015-06-23,bench press,5,5,160.00,lbs
-2015-06-27,bench press,5,5,160.00,lbs
-2015-06-30,bench press,3,10,135.00,lbs
-2015-07-04,bench press,7,6,155.00,lbs
-2015-07-06,bench press,5,8,135.00,lbs
-2015-07-06,close grip bench press,5,10,95.00,lbs
-2015-07-11,bench press,5,5,155.00,lbs
-2015-07-11,close grip bench press,5,8,95.00,lbs
+2014-11-08T16:00:00Z,bench press,1,1,65.00,kg
+2014-11-08T16:00:00Z,bench press,1,1,72.50,kg
+2014-11-08T16:00:00Z,bench press,1,1,80.00,kg
+2015-02-28T10:00:00Z,bench press,5,5,145.00,lbs
+2015-03-03T16:30:00Z,bench press,5,5,150.00,lbs
+2015-03-05T17:30:00Z,close grip bench press,5,5,145.00,lbs
+2015-03-07T11:00:00Z,bench press,6,4,160.00,lbs
+2015-03-10T17:00:00Z,bench press,6,5,155.00,lbs
+2015-03-12T16:30:00Z,close grip bench press,6,5,145.00,lbs
+2015-03-14T10:00:00Z,bench press,5,4,165.00,lbs
+2015-03-14T10:00:00Z,bench press,3,8,135.00,lbs
+2015-03-17T15:30:00Z,bench press,5,5,155.00,lbs
+2015-03-19T17:00:00Z,close grip bench press,5,5,145.00,lbs
+2015-03-21T10:00:00Z,bench press,5,4,165.00,lbs
+2015-03-21T10:00:00Z,bench press,3,7,135.00,lbs
+2015-03-24T18:00:00Z,bench press,3,5,160.00,lbs
+2015-03-24T18:00:00Z,bench press,5,4,155.00,lbs
+2015-03-26T18:00:00Z,close grip bench press,5,5,135.00,lbs
+2015-03-28T10:00:00Z,bench press,8,5,155.00,lbs
+2015-03-31T18:30:00Z,bench press,5,5,155.00,lbs
+2015-04-02T19:30:00Z,close grip bench press,5,5,145.00,lbs
+2015-04-04T10:30:00Z,bench press,7,5,155.00,lbs
+2015-04-07T18:00:00Z,bench press,6,5,155.00,lbs
+2015-04-09T18:30:00Z,close grip bench press,3,5,155.00,lbs
+2015-04-11T10:30:00Z,bench press,7,5,158.00,lbs
+2015-04-14T18:00:00Z,bench press,6,5,155.00,lbs
+2015-04-16T18:00:00Z,close grip bench press,5,5,145.00,lbs
+2015-04-18T10:00:00Z,bench press,5,5,165.00,lbs
+2015-04-21T18:00:00Z,bench press,5,5,155.00,lbs
+2015-04-23T18:00:00Z,bench press,6,5,160.00,lbs
+2015-04-28T18:00:00Z,bench press,5,5,160.00,lbs
+2015-04-30T18:00:00Z,close grip bench press,5,5,145.00,lbs
+2015-05-02T10:00:00Z,bench press,6,5,165.00,lbs
+2015-05-05T18:00:00Z,bench press,5,5,160.00,lbs
+2015-05-07T18:00:00Z,close grip bench press,5,8,130.00,lbs
+2015-05-09T10:30:00Z,bench press,8,5,155.00,lbs
+2015-05-12T17:30:00Z,tng bench press,5,5,160.00,lbs
+2015-05-14T17:30:00Z,close grip bench press,5,8,120.00,lbs
+2015-05-16T10:30:00Z,bench press,5,5,155.00,lbs
+2015-05-19T06:00:00Z,bench press,5,5,155.00,lbs
+2015-05-23T09:30:00Z,bench press,5,5,165.00,lbs
+2015-05-26T17:30:00Z,bench press,5,5,160.00,lbs
+2015-05-30T09:30:00Z,bench press,6,5,165.00,lbs
+2015-06-02T17:30:00Z,bench press,1,5,165.00,lbs
+2015-06-02T17:30:00Z,bench press,5,5,155.00,lbs
+2015-06-06T09:30:00Z,bench press,1,5,170.00,lbs
+2015-06-06T09:30:00Z,bench press,2,4,170.00,lbs
+2015-06-06T09:30:00Z,bench press,4,6,170.00,lbs
+2015-06-09T17:30:00Z,bench press,4,5,165.00,lbs
+2015-06-13T10:30:00Z,bench press,5,5,165.00,lbs
+2015-06-16T17:30:00Z,bench press,5,5,155.00,lbs
+2015-06-20T09:00:00Z,bench press,5,5,165.00,lbs
+2015-06-23T17:30:00Z,bench press,5,5,160.00,lbs
+2015-06-27T10:30:00Z,bench press,5,5,160.00,lbs
+2015-06-30T17:30:00Z,bench press,3,10,135.00,lbs
+2015-07-04T10:30:00Z,bench press,7,6,155.00,lbs
+2015-07-06T18:30:00Z,bench press,5,8,135.00,lbs
+2015-07-06T18:30:00Z,close grip bench press,5,10,95.00,lbs
+2015-07-11T12:00:00Z,bench press,5,5,155.00,lbs
+2015-07-11T12:00:00Z,close grip bench press,5,8,95.00,lbs
+2015-07-13T12:00:00Z,bench press,5,5,160.00,lbs
+2015-07-13T12:00:00Z,close grip bench press,5,10,115.00,lbs
