@@ -1,14 +1,19 @@
 package common
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
-	"gopkg.in/yaml.v2"
+	"io"
 	"io/ioutil"
+	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 // ParseYaml takes a path to a file containing a
@@ -105,12 +110,44 @@ func ParseYamlDir(dirPath string) ([]TrainingLog, error) {
 		return nil, err
 	}
 	for i := range toProcess {
-		file := filepath.Join(dirPath, toProcess[i].Name())
-		t, err := ParseYaml(file)
+		path := filepath.Join(dirPath, toProcess[i].Name())
+
+		file, err := os.Open(path)
 		if err != nil {
 			return nil, err
 		}
-		result = append(result, t)
+		defer file.Close()
+		fInfo, err := file.Stat()
+		if err != nil {
+			return nil, err
+		}
+		isLogDir, err := regexp.Match("^(19|20)\\d\\d$", []byte(toProcess[i].Name()))
+		if err != nil {
+			return nil, err
+		}
+		isLogFile, err := regexp.Match("^(19|20)\\d\\d([-])(0[1-9]|1[012])*([-])(0[1-9]|[12][0-9]|3[01])([-])*(.)*.yml$", []byte(toProcess[i].Name()))
+		if err != nil {
+			return nil, err
+		}
+
+		if fInfo.Mode().IsDir() && isLogDir {
+			logs, err := ParseYamlDir(path)
+			if err != nil {
+				return nil, err
+			}
+			if logs != nil {
+				result = append(result, logs...)
+			}
+		} else if isLogFile {
+			t, err := ParseYaml(path)
+			if err != nil {
+				return nil, err
+			}
+			result = append(result, t)
+		} else {
+			//log.Println("skipping " + path)
+			// skip
+		}
 	}
 	return result, nil
 }
@@ -173,19 +210,53 @@ func ParseYamlDirRaw(directory string) ([]TrainingLogY, error) {
 		return nil, err
 	}
 	for i := range toProcess {
-		file := filepath.Join(directory, toProcess[i].Name())
-		t := TrainingLogY{}
+		path := filepath.Join(directory, toProcess[i].Name())
 
-		data, err := ioutil.ReadFile(file)
+		file, err := os.Open(path)
+		if err != nil {
+			return nil, err
+		}
+		defer file.Close()
+		fInfo, err := file.Stat()
 		if err != nil {
 			return nil, err
 		}
 
-		err = yaml.Unmarshal(data, &t)
+		isLogDir, err := regexp.Match("^(19|20)\\d\\d$", []byte(toProcess[i].Name()))
 		if err != nil {
-			return nil, fmt.Errorf("error parsing yaml file %s\n%v", file, err)
+			return nil, err
 		}
-		result = append(result, t)
+		isLogFile, err := regexp.Match("^(19|20)\\d\\d([-])(0[1-9]|1[012])*([-])(0[1-9]|[12][0-9]|3[01])([-])*(.)*.yml$", []byte(toProcess[i].Name()))
+		if err != nil {
+			return nil, err
+		}
+
+		if fInfo.Mode().IsDir() && isLogDir {
+			logs, err := ParseYamlDirRaw(path)
+			if err != nil {
+				return nil, err
+			}
+			if logs != nil {
+				result = append(result, logs...)
+			}
+		} else if isLogFile {
+			t := TrainingLogY{}
+			buf := new(bytes.Buffer)
+			_, err := io.Copy(buf, file)
+			if err != nil {
+				return nil, err
+			}
+
+			data := buf.Bytes()
+			err = yaml.Unmarshal(data, &t)
+			if err != nil {
+				return nil, fmt.Errorf("error parsing yaml file %s\n%v", file, err)
+			}
+			result = append(result, t)
+		} else {
+
+			// skip if not yaml file
+		}
 	}
 	return result, nil
 }
