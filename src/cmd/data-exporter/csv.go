@@ -6,6 +6,7 @@ import (
 	"github.com/codegangsta/cli"
 	"log"
 	"os"
+	"time"
 	"training-log/common"
 )
 
@@ -25,6 +26,12 @@ func ExportCSV(c *cli.Context) {
 	}
 
 	// Create output file and csv writer
+	bodyweightFile, err := os.Create(c.String("output") + string(os.PathSeparator) + "bodyweight.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	bodyweightCSVWriter := csv.NewWriter(bodyweightFile)
+
 	allFile, err := os.Create(c.String("output") + string(os.PathSeparator) + "all.csv")
 	if err != nil {
 		log.Fatal(err)
@@ -56,6 +63,7 @@ func ExportCSV(c *cli.Context) {
 	deadliftCSVWriter := csv.NewWriter(deadliftFile)
 
 	// Write Headers
+	bodyweightCSVWriter.Write([]string{"date", "bodyweight", "unit"})
 	allCSVWriter.Write([]string{"date", "exercise", "sets", "reps", "weight", "unit"})
 	allSquatsCSVWriter.Write([]string{"date", "exercise", "sets", "reps", "weight", "unit"})
 	compSquatsCSVWriter.Write([]string{"date", "exercise", "sets", "reps", "weight", "unit"})
@@ -70,9 +78,17 @@ func ExportCSV(c *cli.Context) {
 
 	for i := range traininglogs {
 		exercises := traininglogs[i].Workout
-		var date string = traininglogs[i].SimpleTime()
+		var date string = traininglogs[i].Timestamp.Format(time.RFC3339)
+
+		err := bodyweightCSVWriter.Write([]string{date, fmt.Sprintf("%.2f",
+			traininglogs[i].Bodyweight.Value), traininglogs[i].Bodyweight.Unit})
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		for _, ex := range exercises {
-			err := allCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets), fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
+			err := allCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets),
+				fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -80,33 +96,38 @@ func ExportCSV(c *cli.Context) {
 
 		squats := common.FilterVariation(common.SquatVariation, traininglogs[i])
 		for _, ex := range squats {
-			err := allSquatsCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets), fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
+			err := allSquatsCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets),
+				fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
 			if err != nil {
 				log.Fatal(err)
 			}
 		}
 		compSquats := common.Filter(traininglogs[i], "low bar squats", "belted low bar squats")
 		for _, ex := range compSquats {
-			err := compSquatsCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets), fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
+			err := compSquatsCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets),
+				fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
 			if err != nil {
 				log.Fatal(err)
 			}
 		}
 		bench := common.FilterVariation(common.BenchVariation, traininglogs[i])
 		for _, ex := range bench {
-			err := benchCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets), fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
+			err := benchCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets),
+				fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
 			if err != nil {
 				log.Fatal(err)
 			}
 		}
 		deadlifts := common.FilterVariation(common.DeadliftVariation, traininglogs[i])
 		for _, ex := range deadlifts {
-			err := deadliftCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets), fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
+			err := deadliftCSVWriter.Write([]string{date, ex.Name, fmt.Sprintf("%d", ex.Sets),
+				fmt.Sprintf("%d", ex.Reps), fmt.Sprintf("%.2f", ex.Weight.Value), ex.Weight.Unit})
 			if err != nil {
 				log.Fatal(err)
 			}
 		}
 	}
+	bodyweightCSVWriter.Flush()
 	allCSVWriter.Flush()
 	allSquatsCSVWriter.Flush()
 	compSquatsCSVWriter.Flush()
