@@ -13,8 +13,8 @@ var validExerciseNames = []string{
 	// other lower body accessories
 	"db lunges",
 	// Pressing
-	"close grip bench press",
 	"bench press",
+	"close grip bench press",
 	"incline bench press",
 	"tng bench press",
 	"overhead press",
@@ -22,7 +22,7 @@ var validExerciseNames = []string{
 	"db incline press",
 	"db flyes",
 	"db press",
-	// Pulling
+	// deadlifts
 	"sumo deadlift",
 	"conventional deadlift",
 	"paused conventional deadlift",
@@ -30,6 +30,7 @@ var validExerciseNames = []string{
 	"deficit conventional deadlift",
 	"block pulls",
 	"sumo block pulls",
+	// other pulling accessories
 	"bent over rows",
 	"pendlay rows",
 	"chest supported rows",
@@ -75,13 +76,21 @@ var SquatVariations = []string{
 	"paused front squats",
 }
 var BenchVariations = []string{
-	"close grip bench press",
 	"bench press",
+	"close grip bench press",
+	"incline bench press",
 	"tng bench press",
+	"overhead press",
+	"behind the neck press",
 }
 var DeadliftVariations = []string{
 	"sumo deadlift",
 	"conventional deadlift",
+	"paused conventional deadlift",
+	"stiff leg deadlift",
+	"deficit conventional deadlift",
+	"block pulls",
+	"sumo block pulls",
 }
 
 func IsExerciseVariation(variation ExerciseVariation, exerciseName string) bool {
