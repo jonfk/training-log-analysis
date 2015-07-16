@@ -4,3 +4,5 @@
 bin/
 pkg/
 target
+
+.ipynb_checkpoints
