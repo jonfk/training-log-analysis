@@ -30,6 +30,7 @@ var validExerciseNames = []string{
 	"deficit conventional deadlift",
 	"block pulls",
 	"sumo block pulls",
+	"snatch grip deadlift",
 	// other pulling accessories
 	"bent over rows",
 	"pendlay rows",
