@@ -32,6 +32,12 @@ func ExportCSV(c *cli.Context) {
 	}
 	bodyweightCSVWriter := csv.NewWriter(bodyweightFile)
 
+	durationFile, err := os.Create(c.String("output") + string(os.PathSeparator) + "duration.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	durationCSVWriter := csv.NewWriter(durationFile)
+
 	allFile, err := os.Create(c.String("output") + string(os.PathSeparator) + "all.csv")
 	if err != nil {
 		log.Fatal(err)
@@ -64,6 +70,7 @@ func ExportCSV(c *cli.Context) {
 
 	// Write Headers
 	bodyweightCSVWriter.Write([]string{"date", "bodyweight", "unit"})
+	durationCSVWriter.Write([]string{"date", "duration"})
 	allCSVWriter.Write([]string{"date", "exercise", "sets", "reps", "weight", "unit"})
 	allSquatsCSVWriter.Write([]string{"date", "exercise", "sets", "reps", "weight", "unit"})
 	compSquatsCSVWriter.Write([]string{"date", "exercise", "sets", "reps", "weight", "unit"})
@@ -82,6 +89,11 @@ func ExportCSV(c *cli.Context) {
 
 		err := bodyweightCSVWriter.Write([]string{date, fmt.Sprintf("%.2f",
 			traininglogs[i].Bodyweight.Value), traininglogs[i].Bodyweight.Unit})
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = durationCSVWriter.Write([]string{date, fmt.Sprintf("%.2f", traininglogs[i].Duration.Seconds())})
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -128,6 +140,7 @@ func ExportCSV(c *cli.Context) {
 		}
 	}
 	bodyweightCSVWriter.Flush()
+	durationCSVWriter.Flush()
 	allCSVWriter.Flush()
 	allSquatsCSVWriter.Flush()
 	compSquatsCSVWriter.Flush()
