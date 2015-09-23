@@ -12,6 +12,7 @@ var validExerciseNames = []string{
 	"paused front squats",
 	// other lower body accessories
 	"db lunges",
+	"leg press",
 	// Pressing
 	"bench press",
 	"close grip bench press",
