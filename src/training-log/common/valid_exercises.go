@@ -9,6 +9,7 @@ var validExerciseNames = []string{
 	"front squats",
 	"paused high bar squats",
 	"paused low bar squats",
+	"paused belted low bar squats",
 	"paused front squats",
 	// other lower body accessories
 	"db lunges",
