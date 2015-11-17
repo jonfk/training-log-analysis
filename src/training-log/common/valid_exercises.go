@@ -50,6 +50,7 @@ var validExerciseNames = []string{
 	"alternating db curls",
 	"tricep pushdowns",
 	"lateral raises",
+	"front raises",
 	"skull crushers",
 }
 
