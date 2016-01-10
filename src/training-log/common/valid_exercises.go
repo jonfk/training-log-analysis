@@ -20,11 +20,13 @@ var validExerciseNames = []string{
 	"incline bench press",
 	"close grip incline bench press",
 	"tng bench press",
+	"slingshot bench press",
 	"overhead press",
 	"behind the neck press",
 	"db incline press",
 	"db flyes",
 	"db press",
+	"push press",
 	// deadlifts
 	"sumo deadlift",
 	"conventional deadlift",
@@ -42,6 +44,7 @@ var validExerciseNames = []string{
 	"chest supported rows",
 	"db rows",
 	"seated rows",
+	"db shrugs",
 	// Back
 	"pull ups",
 	"chin ups",
