@@ -55,6 +55,7 @@ var validExerciseNames = []string{
 	"lateral raises",
 	"front raises",
 	"skull crushers",
+	"one arm db tricep extension",
 }
 
 // IsValidExercise verifies whether it's argument is part of the
