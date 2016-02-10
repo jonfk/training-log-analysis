@@ -6,3 +6,4 @@ pkg/
 target
 
 .ipynb_checkpoints
+.vagrant
