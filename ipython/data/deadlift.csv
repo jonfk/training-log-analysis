@@ -81,3 +81,23 @@ date,exercise,sets,reps,weight,unit
 2015-11-14T13:30:00Z,sumo deadlift,1,1,167.50,kg
 2015-11-21T23:00:00Z,conventional deadlift,5,5,245.00,lbs
 2015-11-28T11:00:00Z,conventional deadlift,5,5,255.00,lbs
+2015-12-05T11:00:00Z,conventional deadlift,5,3,275.00,lbs
+2015-12-05T11:00:00Z,stiff leg deadlift,2,5,225.00,lbs
+2015-12-12T11:00:00Z,conventional deadlift,5,3,285.00,lbs
+2015-12-12T11:00:00Z,stiff leg deadlift,5,5,225.00,lbs
+2015-12-19T11:00:00Z,conventional deadlift,3,3,295.00,lbs
+2015-12-19T11:00:00Z,conventional deadlift,3,5,245.00,lbs
+2016-01-02T12:30:00Z,conventional deadlift,3,5,225.00,lbs
+2016-01-02T12:30:00Z,conventional deadlift,5,5,245.00,lbs
+2016-01-02T12:30:00Z,stiff leg deadlift,3,5,225.00,lbs
+2016-01-09T23:00:00Z,conventional deadlift,4,5,255.00,lbs
+2016-01-09T23:00:00Z,conventional deadlift,1,7,255.00,lbs
+2016-01-16T11:00:00Z,conventional deadlift,5,5,265.00,lbs
+2016-01-16T11:00:00Z,stiff leg deadlift,3,5,235.00,lbs
+2016-01-23T11:00:00Z,conventional deadlift,5,5,275.00,lbs
+2016-01-23T11:00:00Z,stiff leg deadlift,3,5,235.00,lbs
+2016-01-30T10:30:00Z,conventional deadlift,5,5,285.00,lbs
+2016-01-30T10:30:00Z,stiff leg deadlift,3,5,245.00,lbs
+2016-02-06T10:30:00Z,conventional deadlift,1,1,295.00,lbs
+2016-02-06T10:30:00Z,conventional deadlift,4,4,245.00,lbs
+2016-02-06T10:30:00Z,stiff leg deadlift,3,5,235.00,lbs
